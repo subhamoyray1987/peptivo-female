@@ -1,0 +1,441 @@
+
+.pep-drawer{
+  display: none;
+}
+
+
+
+
+/* ==========================================================
+   PEPTIVO — responsive.css  (max-width approach only)
+   Breakpoints: 1100 · 900 · 768 · 540 · 380
+========================================================== */
+
+/* ── 1100px: compress nav padding ─────────────────────── */
+@media (max-width: 1100px) {
+  :root {
+    --px: clamp(20px, 4vw, 48px);
+    --py: clamp(52px, 7vw, 84px);
+  }
+
+  .pep-nav__links { gap: 22px; }
+}
+
+
+/* ── 900px: switch hero to vertical stack ──────────────── */
+@media (max-width: 900px) {
+
+  .pep-hero { padding-top: calc(var(--nav-h) + 24px); }
+
+  .pep-hero__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  .pep-hero__content { max-width: 100%; }
+
+  .pep-hero__visual {
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .hero-card { width: clamp(260px, 55%, 340px); }
+  .hero-trust { flex: 1 1 200px; }
+
+  /* Stats: 2×2 */
+  .stats-bar { flex-wrap: wrap; }
+  .stats-bar__item { flex: 1 1 calc(50% - 1px); }
+  .stats-bar__divider:nth-child(4) { /* hide vertical divider between rows */
+    width: 100%; height: 1px; align-self: auto;
+  }
+
+  /* Cards: 2×2 */
+  .benefit-card { flex: 1 1 calc(50% - 16px); }
+}
+
+
+/* ── 768px: collapse nav ───────────────────────────────── */
+@media (max-width: 768px) {
+
+  .pep-nav__links { display: none; }
+  .pep-nav__right .pep-btn--outline { display: none; }
+  .pep-hamburger { display: flex; }
+
+  .pep-drawer__close{
+    float: right;
+  }
+
+  .hero-headline { font-size: clamp(36px, 10vw, 54px); letter-spacing: -1px; }
+  .hero-sub { font-size: 15px; }
+
+  .hero-badge--tl { top: -8px;  left: -8px; }
+  .hero-badge--br { bottom: -8px; right: -8px; }
+
+  .section-title { font-size: clamp(30px, 7vw, 44px); }
+
+  /* Stats: all stacked */
+  .stats-bar { 
+    /* flex-direction: column;  */
+    border-radius: 20px; 
+  }
+
+  .stats-bar__item:nth-of-type(1),
+  .stats-bar__item:nth-of-type(2){
+    padding-bottom: 24px;
+  }
+
+
+  .stats-bar__item { width: 100%; }
+  .stats-bar__divider { width: 100%; height: 1px; align-self: auto; }
+
+  /* Cards: single col */
+  .benefit-card { flex: 1 1 100%; }
+
+  /* Science CTA: stacked */
+  .science-cta-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+  /* Backdrop overlay — covers the rest of the page */
+  .pep-drawer-overlay {
+    display: none;           /* shown only at ≤768px via JS .open class */
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 998;
+    transition: background 0.32s ease;
+    pointer-events: none;
+  }
+
+  .pep-drawer-overlay.open {
+    display: block;
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: auto;
+  }
+
+    /* Drawer: hidden by default, slides down when .open is added by JS */
+  .pep-drawer {
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+    padding: 18px 20px 26px;
+    z-index: 999;
+    /* Hidden state */
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    height: 100dvh;
+  }
+
+  .pep-drawer.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .pep-drawer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 20px;
+  }
+
+  .pep-drawer ul a {
+    display: block;
+    padding: 12px 8px 12px 0px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--c-ink, #0f172a);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: color 0.2s;
+  }
+
+  
+
+  .pep-drawer ul a:hover { color: var(--c-blue, #2563eb); }
+
+  .pep-drawer ul a.pep-btn{
+    color: #fff;
+  }
+
+  .pep-drawer ul a.pep-btn,.pep-drawer ul a.pep-btn:hover{
+    color: #fff;
+  }
+
+  /* Hamburger animated to X when .open */
+  .pep-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .pep-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--c-ink, #0f172a);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  .pep-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .pep-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .pep-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+  /* ── ISSUE 2 FIX: Doctor modal (mobile only) ─────────────── */
+#pds-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.pds-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.pds-modal__box {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 24px 32px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+}
+
+/* Open state — triggered by JS adding .pds-modal--open */
+#pds-modal.pds-modal--open .pds-modal__overlay { opacity: 1; }
+#pds-modal.pds-modal--open .pds-modal__box {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.pds-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #334155;
+  transition: background 0.2s;
+}
+.pds-modal__close:hover { background: #e2e8f0; }
+
+.pds-modal__img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  margin: 0 auto 14px;
+  display: block;
+  border: 3px solid #e8f0fe;
+}
+
+.pds-modal__degree {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-blue, #2563eb);
+  margin: 0 0 6px;
+}
+
+.pds-modal__name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+.pds-modal__feedback {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0 0 18px;
+}
+
+.pds-modal__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.pds-modal__badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  background: #eff6ff;
+  color: var(--c-blue, #2563eb);
+  border-radius: 100px;
+}
+
+.pds-stage{
+  /* display: none; */
+}
+
+ /* Ensure slider fills its column width with no overflow */
+  .results-col--slider {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .ba-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent the slider container itself from triggering page scroll
+       when the user is dragging horizontally */
+    touch-action: pan-y;
+  }
+
+  /* Both image layers must be full width and same height */
+  .ba-slider__after,
+  .ba-slider__before {
+    width: 100%;
+    position: absolute;    /* stacked on top of each other */
+  }
+
+  .ba-slider__after  { position: relative; }  /* bottom layer — drives height */
+  .ba-slider__before { position: absolute; top: 0; left: 0; height: 100%; }
+
+  .ba-slider__after  img,
+  .ba-slider__before img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    -webkit-user-drag: none;  /* stop image ghost-drag on iOS */
+    user-drag: none;
+    pointer-events: none;     /* let pointer events pass through to slider */
+  }
+
+  /* Handle — bigger tap target on mobile */
+  .ba-handle {
+    touch-action: none;
+  }
+
+  .ba-handle__circle {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* Stack results cols vertically on mobile */
+  .results-cols {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+}
+
+
+/* ── 540px: mobile refinements ─────────────────────────── */
+@media (max-width: 540px) {
+  :root { --px: 18px; --py: 44px; }
+
+  .hero-headline { font-size: clamp(32px, 11vw, 46px); }
+
+  .hero-card { width: 100%; padding: 26px 20px; }
+  .hero-badge--tl, .hero-badge--br { display: none; }
+
+  .hero-trust { padding: 14px 16px; gap: 12px; }
+  .hero-trust__pill strong { font-size: 18px; }
+
+  .stats-bar__val { font-size: 40px; }
+  .stats-bar__item { padding: 20px 16px; }
+
+  .benefit-card { padding: 20px 18px 16px; }
+  .benefit-card__title { font-size: 16px; }
+
+  .pep-btn--lg { padding: 14px 28px; font-size: 12px; }
+
+  .section-title { font-size: clamp(28px, 9vw, 38px); }
+  .section-sub { font-size: 14px; }
+
+  .ba-card { border-radius: 16px; }
+  .ba-card__footer {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .ba-stat__sep { display: none; }
+
+  .specs-stage{
+    /* width: 80%; */
+  }
+  
+}
+
+
+/* ── 380px: smallest screens ───────────────────────────── */
+@media (max-width: 380px) {
+  :root { --px: 14px; }
+  .hero-headline { font-size: 30px; }
+  .logo-wordmark { font-size: 19px; }
+  .pep-btn { padding: 12px 22px; font-size: 11px; }
+}
+
+
+/* ── Landscape / short screens ─────────────────────────── */
+@media (max-width: 900px) and (max-height: 520px) {
+  .pep-hero__inner { flex-direction: row; flex-wrap: wrap; }
+  .scroll-cue { display: none; }
+  .pep-hero { padding-bottom: 40px; }
+}

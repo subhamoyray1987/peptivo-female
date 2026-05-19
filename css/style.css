@@ -1,0 +1,4696 @@
+/* ==========================================================
+   PEPTIVO â€” style.css  v4
+   Stack: Bootstrap 5 + Flexbox Â· Animate.css reveals Â·
+          GSAP hero-only Â· IntersectionObserver
+   Palette: #fff bg Â· #0f172a text Â· #2563eb accent
+   Font:    Montserrat 800 headings / 400â€“500 body
+   NO: scroll-hijack Â· parallax Â· pinning Â· snap Â· 100vh locks
+========================================================== */
+
+/* â”€â”€ VARIABLES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root {
+  --c-bg:       #ffffff;
+  --c-bg-soft:  #f8faff;
+  --c-bg-muted: #f0f4f8;
+
+  --c-text:     #0f172a;
+  --c-text-2:   #334155;
+  --c-muted:    #64748b;
+  --c-light:    #94a3b8;
+  --c-blue:     #2563eb;
+  --c-blue-dk:  #1d4ed8;
+  --c-blue-lt:  #3b82f6;
+  --c-blue-50:  #eff6ff;
+  --c-blue-100: #dbeafe;
+  --c-blue-200: #bfdbfe;
+
+  --c-border:   #e2e8f0;
+
+  --f: 'Montserrat', system-ui, sans-serif;
+
+  --nav-h: 68px;
+  --px:    clamp(20px, 5vw, 80px);
+  --py:    clamp(64px, 8vw, 104px);
+
+  --r-sm:   6px;
+  --r-md:   12px;
+  --r-lg:   20px;
+  --r-xl:   28px;
+  --r-full: 9999px;
+
+  --sh-sm:   0 1px 3px rgba(15,23,42,.06);
+  --sh-md:   0 4px 16px rgba(15,23,42,.08);
+  --sh-lg:   0 12px 40px rgba(15,23,42,.10);
+  --sh-xl:   0 24px 64px rgba(15,23,42,.12);
+  --sh-blue: 0 8px 32px rgba(37,99,235,.20);
+
+  --ease: cubic-bezier(.19,1,.22,1);
+}
+
+/* â”€â”€ RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  /* Native browser scroll â€” smooth for anchor links, immediate for wheel */
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+  /* no cursor:none â€” native cursor, no custom cursor overhead */
+}
+
+a    { color: inherit; text-decoration: none; }
+ul   { list-style: none; padding: 0; margin: 0; }
+img,
+svg  { display: block; max-width: 100%; }
+button { background: none; border: none; font-family: inherit; cursor: pointer; }
+strong { font-weight: 600; }
+em     { font-style: italic; }
+
+p{
+  font-size: 1rem;
+}
+
+/* â”€â”€ SHARED COMPONENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/* Label chip */
+.pep-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+}
+
+.pep-label__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  flex-shrink: 0;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .4; transform: scale(.55); }
+}
+
+/* Section header block */
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.section-title {
+  font-size: clamp(34px, 4.8vw, 58px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--c-text);
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 700;
+  color: var(--c-blue);
+}
+
+.section-sub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--c-muted);
+  /* max-width: 540px; */
+}
+
+/* Buttons */
+.pep-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--f);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+  position: relative;
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    color .25s ease,
+    box-shadow .25s ease,
+    transform .3s var(--ease);
+}
+
+.pep-btn--primary {
+  background: var(--c-blue);
+  color: #fff;
+  border: 2px solid var(--c-blue);
+
+  position: relative;
+  overflow: hidden !important;
+  border-radius: var(--r-full);
+}
+
+
+.pep-btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: lightMove 3s infinite;
+}
+
+@keyframes lightMove {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.pep-btn--primary:hover {
+  background: var(--c-blue-dk);
+  border-color: var(--c-blue-dk);
+  color: #fff;
+  box-shadow: var(--sh-blue);
+  transform: translateY(-2px);
+}
+
+.pep-btn--outline {
+  background: transparent;
+  color: var(--c-text);
+  border: 2px solid var(--c-border);
+}
+
+.pep-btn--outline:hover {
+  border-color: var(--c-blue);
+  color: var(--c-blue);
+  transform: translateY(-1px);
+}
+
+.pep-btn--lg {
+  font-size: 13px;
+  padding: 16px 36px;
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   REVEAL ANIMATION SYSTEM
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   .reveal-up  â€” hidden by default.
+   JS adds Animate.css classes when element enters viewport.
+   --rd CSS variable sets per-element animation-delay.
+   Uses CSS transitions only â€” zero JS on scroll.
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  /* No transition here â€” animate.css handles it via its own keyframes */
+}
+
+.reveal-up.animated {
+  /* animate.css sets opacity:1 via fadeInUp keyframe.
+     We set duration and delay via CSS vars. */
+  --animate-duration: .6s;
+  --animate-delay: var(--rd, 0ms);
+  opacity: 1;
+  transform: none;
+}
+
+/* Ensure animate.css respects our delay variable */
+.animated {
+  animation-delay: var(--animate-delay, 0s) !important;
+  animation-duration: var(--animate-duration, .6s) !important;
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   HERO â€” load-time stagger animation
+   .hero-anim starts invisible; JS fires GSAP timeline once.
+   --d = per-element delay (CSS var, set inline)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.hero-anim,
+.hero-anim--right {
+  opacity: 0;
+  /* GSAP will animate from translateY(20px) or translateX(30px) */
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   HEADER
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.pep-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: var(--nav-h);
+  background: rgba(255,255,255,.97);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+
+.pep-header.is-scrolled {
+  border-color: var(--c-border);
+  box-shadow: 0 2px 12px rgba(15,23,42,.06);
+}
+
+.pep-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 var(--px);
+}
+
+/* Logo */
+.pep-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pep-logo img{
+  max-height: 26px;
+}
+
+.logo-wordmark {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-text);
+  letter-spacing: -.5px;
+}
+
+.logo-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  background: var(--c-blue-50);
+  border: 1px solid var(--c-blue-100);
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+}
+
+/* Nav links */
+.pep-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.pep-nav__link {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+  position: relative;
+  padding-bottom: 3px;
+  transition: color .2s ease;
+}
+
+.pep-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--c-blue);
+  border-radius: 2px;
+  transition: width .3s var(--ease);
+}
+
+.pep-nav__link:hover { color: var(--c-blue); }
+.pep-nav__link:hover::after { width: 100%; }
+
+/* Right cluster */
+.pep-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Hamburger â€” hidden on desktop */
+.pep-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+}
+
+.pep-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: transform .35s var(--ease), opacity .25s ease;
+}
+
+.pep-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.pep-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.pep-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.pep-drawer {
+  position: fixed;
+  top: var(--nav-h); left: 0; right: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--c-border);
+  padding: 24px var(--px) 32px;
+  box-shadow: 0 8px 32px rgba(15,23,42,.08);
+  /* Slide up/down via CSS transform â€” no JS animation needed */
+  transform: translateY(-110%);
+  transition: transform .4s var(--ease);
+  z-index: 890;
+}
+
+.pep-drawer.open { transform: translateY(0); }
+
+.pep-drawer ul { display: flex; flex-direction: column; gap: 4px; }
+
+.pep-drawer a {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-bg-muted);
+  transition: color .2s ease;
+}
+
+.pep-drawer a:last-child { border-bottom: none; }
+.pep-drawer a:hover { color: var(--c-blue); }
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   HERO BACKGROUND VIDEO
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   â€¢ Absolutely positioned behind all hero content (z-index -1)
+   â€¢ object-fit:cover fills entire hero area â€” no layout shift
+   â€¢ preload="none" â€” video doesn't block page load
+   â€¢ poster image shows instantly on mobile / while video loads
+   â€¢ overlay provides contrast for text readability
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;           /* sits below hero-accent (z:0) and content (z:1) */
+  overflow: hidden;
+  /* Composite layer hint â€” avoids repaints during scroll */
+  transform: translateZ(0);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Prevent any flash of unstyled video */
+  background: #0a0f1e;
+  /* GPU composite â€” video decode stays on its own layer */
+  will-change: transform;
+}
+
+/* Overlay â€” brand blue tint left (text column) fading to airy white right */
+.hero-video__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      108deg,
+      /* Left: soft blue-white blend â€” lifts black text off any footage */
+      rgba(255,255,255,.93)  0%,
+      rgba(219,234,254,.82) 25%,   /* --c-blue-100 tint */
+      rgba(37, 99, 235,.18) 50%,   /* brand blue mid-wash */
+      rgba(255,255,255,.30) 75%,
+      rgba(255,255,255,.08) 100%
+    );
+}
+
+/* Mobile â€” flatter cover so text is always readable on small screens */
+@media (max-width: 768px) {
+  .hero-video__overlay {
+    background:
+      linear-gradient(
+        108deg,
+        rgba(255,255,255,.95)  0%,
+        rgba(219,234,254,.88) 50%,
+        rgba(255,255,255,.75) 100%
+      );
+  }
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   TYPEWRITER â€” hero headline
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   â€¢ #tw-text span receives characters via JS innerHTML
+   â€¢ .tw-cursor blinks via CSS keyframes â€” no JS involvement
+   â€¢ min-height on h1 prevents layout shift as text types/deletes
+   â€¢ Uses existing .hero-headline font-size/weight/color
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+/* Reserve height for 3 lines â€” prevents CLS during type/delete */
+.hero-headline {
+  /* min-height: 3 lines Ã— line-height. Calculated from clamp value.
+     Using em so it scales with font-size automatically. */
+  min-height: calc(1.05em * 3 + 0.1em);
+}
+
+/* Render the typed HTML (includes <br> and <em> tags) */
+#tw-text {
+  display: inline;
+}
+
+/* Blinking cursor character */
+.tw-cursor {
+  display: inline-block;
+  font-weight: 300;
+  color: var(--c-blue);
+  margin-left: 1px;
+  line-height: 1;
+  animation: twBlink 1.05s step-start infinite;
+  /* Align with cap-height */
+  vertical-align: baseline;
+}
+
+@keyframes twBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Pause cursor blink while typing/deleting â€” JS adds this class */
+.tw-cursor.is-typing { animation: none; opacity: 1; }
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   HERO SECTION
+   Natural height â€” padding only, no 100vh, no overflow:hidden
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.pep-hero {
+  position: relative;
+  background: var(--c-bg);
+  padding-top: calc(var(--nav-h) + 40px);
+  padding-bottom: var(--py);
+  /* overflow:hidden clips video to hero bounds without affecting scroll */
+  overflow: hidden;
+}
+
+/* Decorative blur shapes â€” above video, below content */
+.hero-accent {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(72px);
+  z-index: 1;
+}
+
+.hero-accent--1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(37,99,235,.07) 0%, transparent 70%);
+  top: -60px; right: -80px;
+}
+
+.hero-accent--2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(59,130,246,.05) 0%, transparent 70%);
+  bottom: 40px; left: -60px;
+}
+
+/* Dot grid â€” masked to right side */
+.hero-dots-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--c-blue-200) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: .3;
+  mask-image: radial-gradient(ellipse 70% 60% at 75% 40%, black, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Two-column flex layout */
+.pep-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  padding: 0 var(--px);
+}
+
+/* Left column */
+.pep-hero__content {
+  flex: 0 0 auto;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Headline */
+.hero-headline {
+  font-size: clamp(42px, 6vw, 78px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--c-text);
+}
+
+.hero-headline em {
+  color: var(--c-blue);
+  letter-spacing: -1px;
+}
+
+/* Sub copy */
+.hero-sub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--c-text-2);
+  max-width: 460px;
+}
+
+.hero-sub strong { color: var(--c-text); font-weight: 600; }
+
+.price-accent {
+  color: var(--c-blue);
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+/* Bullets */
+.hero-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--c-text);
+  line-height: 1.55;
+}
+
+.hero-bullets li svg {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+}
+
+/* CTA row */
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Play link */
+.hero-play {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+  transition: color .2s ease;
+}
+
+.hero-play:hover { color: var(--c-blue); }
+
+.play-circle {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-blue);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .3s var(--ease);
+  flex-shrink: 0;
+}
+
+.hero-play:hover .play-circle {
+  border-color: var(--c-blue);
+  box-shadow: 0 0 0 4px var(--c-blue-50);
+  transform: scale(1.06);
+}
+
+.play-circle svg { width: 16px; height: 16px; margin-left: 2px; }
+
+/* Right column â€” visual */
+.pep-hero__visual {
+  flex: 0 0 auto;
+  width: clamp(280px, 38%, 440px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Hero card */
+.hero-card {
+  position: relative;
+  width: 100%;
+  /* background: var(--c-bg); */
+  background: rgba(255,255,255,.5);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: 40px 36px 44px;
+  box-shadow: var(--sh-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 40%, rgba(37,99,235,.06), transparent 65%);
+  pointer-events: none;
+}
+
+.hero-card__product { position: relative; z-index: 1;  display: flex; align-items: center;}
+
+.hero-vial {
+  width: 150px; height: 225px;
+  filter:
+    drop-shadow(0 16px 32px rgba(15,23,42,.12))
+    drop-shadow(0 4px 8px rgba(37,99,235,.08));
+}
+
+/* Floating badges */
+.hero-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 9px 13px;
+  box-shadow: var(--sh-md);
+  z-index: 2;
+}
+
+.hero-badge--tl { top: -10px; left: -18px; }
+.hero-badge--br { bottom: -10px; right: -18px; }
+
+.badge-icon { font-size: 17px; flex-shrink: 0; }
+.badge-val  { font-size: 12px; font-weight: 700; color: var(--c-text); line-height: 1.2; }
+.badge-sub  { font-size: 10px; font-weight: 400; color: var(--c-muted); }
+
+/* Trust strip */
+.hero-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 14px 20px;
+}
+
+.hero-trust__pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hero-trust__pill strong {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--c-text);
+  line-height: 1;
+}
+
+.hero-trust__pill span {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-trust__sep {
+  width: 1px; height: 26px;
+  background: var(--c-border);
+}
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scroll-cue span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--c-light);
+}
+
+.scroll-cue__bar {
+  width: 1.5px; height: 40px;
+  background: linear-gradient(to bottom, var(--c-blue), transparent);
+  animation: scrollBar 2s ease-in-out infinite;
+}
+
+@keyframes scrollBar {
+  0%, 100% { opacity: .8; transform: scaleY(1); }
+  50%       { opacity: .25; transform: scaleY(.5); }
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SCIENCE SECTION
+   Natural height â€” no overflow:hidden on section
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.pep-science {
+  background: var(--c-bg-soft);
+  padding: var(--py) 0;
+  /* No overflow:hidden â€” was causing scroll calculation issues */
+}
+
+/* Stats bar */
+.stats-bar {
+  display: flex;
+  align-items: stretch;
+  /* background: #fff; */
+  /* border: 1px solid var(--c-border); */
+  border-radius: var(--r-xl);
+  overflow: hidden;  /* OK here â€” only clips border-radius, not layout */
+  /* box-shadow: var(--sh-sm); */
+  /* margin-bottom: 52px; */
+}
+
+.stats-bar__item {
+  flex: 1;
+  padding: 0 24px;
+  text-align: center;
+  transition: background .25s ease;
+}
+
+/* .stats-bar__item:hover { background: var(--c-blue-50); } */
+
+.stats-bar__divider {
+  /* width: 1px; */
+  /* background: var(--c-border); */
+  align-self: stretch;
+}
+
+.stats-bar__val {
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 800;
+  color: var(--c-blue);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.stats-bar__unit {
+  font-size: .52em;
+  font-weight: 700;
+  color: var(--c-blue-lt);
+}
+
+.stats-bar__label {
+  /* font-size: 12px; */
+  font-weight: 400;
+  color: var(--c-muted);
+  line-height: 1.45;
+  /* max-width: 150px; */
+  margin: 0 auto;
+}
+
+/* Benefit cards â€” flexbox row */
+.benefit-cards {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.benefit-card {
+  flex: 1 1 calc(25% - 14px);
+  min-width: 190px;
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: 22px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden; /* border-radius clip only */
+  cursor: default;
+  transition:
+    border-color .3s ease,
+    transform .35s var(--ease),
+    box-shadow .3s ease;
+}
+
+.benefit-card:hover {
+  border-color: var(--c-blue-200);
+  transform: translateY(-5px);
+  box-shadow: var(--sh-lg), 0 0 0 4px var(--c-blue-50);
+}
+
+/* Featured blue card */
+.benefit-card--blue {
+  background: var(--c-blue);
+  border-color: var(--c-blue);
+}
+
+.benefit-card--blue:hover {
+  background: var(--c-blue-dk);
+  border-color: var(--c-blue-dk);
+  box-shadow: var(--sh-blue);
+}
+
+.benefit-card--blue .benefit-card__title { color: #fff; }
+.benefit-card--blue .benefit-card__body  { color: rgba(255,255,255,.8); }
+
+.benefit-card__num {
+  position: absolute;
+  top: 14px; right: 18px;
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--c-blue-100);
+  line-height: 1;
+  letter-spacing: -1px;
+  pointer-events: none;
+}
+
+.benefit-card--blue .benefit-card__num { color: rgba(255,255,255,.12); }
+
+.benefit-card__icon { width: 48px; height: 48px; flex-shrink: 0; }
+.benefit-card__icon svg { width: 100%; height: 100%; }
+
+.benefit-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--c-text);
+}
+
+.benefit-card__body {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--c-muted);
+  flex: 1;
+}
+
+.benefit-card__tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  background: var(--c-blue-50);
+  border: 1px solid var(--c-blue-100);
+  border-radius: var(--r-full);
+  padding: 4px 12px;
+  align-self: flex-start;
+}
+
+.benefit-card__tag--light {
+  color: rgba(255,255,255,.9);
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.25);
+}
+
+/* CTA strip */
+.science-cta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: 28px 36px;
+  box-shadow: var(--sh-sm);
+}
+
+.science-cta-strip__copy p {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+
+.science-cta-strip__copy strong { color: var(--c-text); font-weight: 700; }
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CUSTOM CURSOR
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   22px circular outline, #2563eb border, transparent fill.
+   JS lerps position each rAF â€” no transform set in CSS so
+   GSAP/JS owns the property entirely (no conflict).
+   Hidden by default on coarse/touch devices via media query.
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.pep-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #2563eb;
+  background: transparent;
+  pointer-events: none;
+  z-index: 99999;
+  /* Start offscreen â€” JS positions it on first mousemove */
+  transform: translate(-100px, -100px);
+  /* Scale transition only â€” position is driven by JS directly */
+  transition: transform 0s linear, /* position: no transition, JS lerps */
+              opacity .2s ease,
+              width .2s ease,
+              height .2s ease,
+              border-color .2s ease;
+  will-change: transform;
+}
+
+/* Hover state â€” slight scale-up, filled centre tint */
+.pep-cursor.is-hover {
+  width: 34px;
+  height: 34px;
+  border-color: #2563eb;
+  background: rgba(37,99,235,.06);
+  /* Offset so it stays centred over pointer */
+  /* JS adjusts the -50% offset via inline style on scale change */
+}
+
+/* Click flash */
+.pep-cursor.is-click {
+  width: 18px;
+  height: 18px;
+  background: rgba(37,99,235,.12);
+}
+
+/* Hide completely on touch / coarse pointer */
+@media (pointer: coarse), (hover: none) {
+  .pep-cursor { display: none !important; }
+  body        { cursor: auto !important; }
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   BUTTON ARROW â€” .js-btn-arrow
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   overflow:hidden removed from .btn-arrow â€” it was clipping
+   the SVG on translateX + rotate. Button pill already clips
+   to its own border-radius naturally; no extra clip needed.
+   SVG viewBox gains 3px padding on all sides (see HTML) so
+   stroke edges never touch the boundary during animation.
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.js-btn-arrow {
+  overflow: visible;
+}
+
+.btn-label {
+  display: inline-block;
+}
+
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* No overflow:hidden â€” clipping was causing the trim issue */
+  overflow: visible;
+  width: 20px;   /* wider than SVG so rotate+translate never clips */
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.btn-arrow__svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  /* GSAP owns transform â€” no CSS transition */
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   RESULTS SECTION â€” Before/After Slider + LBS Calculator
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   Two-column flexbox. Cards share the same border/shadow
+   language as the rest of the design system.
+   Slider clip-path controlled by inline style from JS.
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.pep-results {
+  background: var(--c-bg);
+  padding: var(--py) 0;
+  position: relative;
+}
+
+/* Subtle top rule matching .pep-science */
+.pep-results::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .18;
+}
+
+.pep-results__inner {
+  padding: 0 var(--px);
+}
+
+/* Section header reuses existing .section-header styles */
+.results-header {
+  margin-bottom: 40px;
+}
+
+/* â”€â”€ Two-column flex row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.results-cols {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.results-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   BEFORE / AFTER SLIDER CARD
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.ba-card {
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ba-card__header {
+  padding: 16px 22px 0;
+}
+
+/* Shared pill badge (used in both cards) */
+.ba-card__label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  background: var(--c-blue-50);
+  border: 1px solid var(--c-blue-100);
+  border-radius: var(--r-full);
+  padding: 5px 12px;
+}
+
+/* â”€â”€ Slider viewport â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.ba-slider {
+  position: relative;
+  width: 100%;
+  /* Reserve a 3:4 aspect ratio so layout never shifts while images load */
+  /* aspect-ratio: 3 / 4; */
+  overflow: hidden;
+  cursor: col-resize;
+  user-select: none;
+  -webkit-user-select: none;
+  margin-top: 20px;
+  flex: 1;
+}
+
+/* Both image layers fill the viewport */
+.ba-slider__after,
+.ba-slider__before {
+  position: absolute;
+  inset: 0;
+}
+
+.ba-slider__after img,
+.ba-slider__before img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  pointer-events: none;
+  /* Prevent browser drag ghost */
+  -webkit-user-drag: none;
+}
+
+/* Before panel â€” clip-path set by JS inline style */
+.ba-slider__before {
+  /* Default: reveal left half */
+  clip-path: inset(0 50% 0 0);
+  transition: clip-path 0s linear; /* JS drives this directly, no CSS transition */
+}
+
+/* BEFORE / AFTER labels */
+.ba-tag {
+  position: absolute;
+  bottom: 14px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  pointer-events: none;
+}
+
+.ba-tag--before {
+  left: 14px;
+  background: rgba(255,255,255,.92);
+  color: var(--c-text);
+  border: 1px solid rgba(255,255,255,.6);
+}
+
+.ba-tag--after {
+  right: 14px;
+  background: var(--c-blue);
+  color: #fff;
+}
+
+/* â”€â”€ Drag handle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.ba-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;           /* JS overrides this */
+  height: 100%;
+  width: 0;            /* no width â€” centred via translate */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: col-resize;
+  touch-action: none;  /* prevent scroll interference on touch */
+}
+
+.ba-handle__line {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,.25);
+}
+
+.ba-handle__circle {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  border: 3px solid #fff;
+  box-shadow: 0 4px 16px rgba(37,99,235,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s ease, box-shadow .2s ease;
+  flex-shrink: 0;
+}
+
+.ba-handle:hover .ba-handle__circle,
+.ba-handle:focus .ba-handle__circle {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37,99,235,.45);
+}
+
+.ba-handle:focus { outline: none; }
+.ba-handle:focus-visible .ba-handle__circle {
+  outline: 3px solid var(--c-blue);
+  outline-offset: 3px;
+}
+
+/* â”€â”€ Card footer stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.ba-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 14px 22px;
+  border-top: 1px solid var(--c-border);
+  background: var(--c-bg-soft);
+  gap: 8px;
+}
+
+.ba-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.ba-stat strong {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--c-text);
+  line-height: 1;
+}
+
+.ba-stat span {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.ba-stat__sep {
+  width: 1px;
+  height: 28px;
+  background: var(--c-border);
+  flex-shrink: 0;
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CALCULATOR CARD
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.calc-card {
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: 28px 28px 32px;
+  box-shadow: var(--sh-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.calc-card__header {
+  /* same header treatment as ba-card */
+}
+
+.calc-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--c-text);
+  margin: 0;
+}
+
+/* â”€â”€ Input fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calc-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.calc-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--c-bg-soft);
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: border-color .2s ease;
+}
+
+.calc-input-row:focus-within {
+  border-color: var(--c-blue);
+}
+
+.calc-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--f);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--c-text);
+  padding: 12px 16px;
+  outline: none;
+  /* Remove number spinners */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.calc-input::-webkit-outer-spin-button,
+.calc-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.calc-unit {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-muted);
+  padding: 0 16px 0 0;
+}
+
+/* Range slider */
+.calc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--c-blue) 0%,
+    var(--c-blue) calc((var(--val, 200) - 100) / 400 * 100%),
+    var(--c-blue-100) calc((var(--val, 200) - 100) / 400 * 100%),
+    var(--c-blue-100) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.calc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+.calc-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
+  cursor: pointer;
+}
+
+.calc-range::-webkit-slider-thumb:hover,
+.calc-range:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.calc-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--c-light);
+}
+
+/* Duration tabs */
+.calc-duration-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.calc-tab {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--c-border);
+  background: var(--c-bg-soft);
+  font-family: var(--f);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--c-muted);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.calc-tab:hover {
+  border-color: var(--c-blue-200);
+  color: var(--c-blue);
+}
+
+.calc-tab.active {
+  background: var(--c-blue);
+  border-color: var(--c-blue);
+  color: #fff;
+  box-shadow: var(--sh-blue);
+}
+
+/* â”€â”€ Result block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.calc-result {
+  background: var(--c-bg-soft);
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calc-result__row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.calc-result__block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.calc-result__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.calc-result__val {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--c-text);
+  line-height: 1;
+}
+
+.calc-result__val--blue {
+  color: var(--c-blue);
+}
+
+.calc-result__divider {
+  width: 1px;
+  height: 48px;
+  background: var(--c-border);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* Progress bar */
+.calc-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calc-progress__track {
+  height: 6px;
+  background: var(--c-blue-100);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.calc-progress__fill {
+  height: 100%;
+  width: 20%;           /* GSAP animates this */
+  background: linear-gradient(90deg, var(--c-blue-lt), var(--c-blue));
+  border-radius: 3px;
+}
+
+.calc-progress__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--c-light);
+}
+
+/* â”€â”€ Disclaimer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.calc-disclaimer {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--c-light);
+  margin: -8px 0 -4px;  /* tighten gap above/below */
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   RESULTS RESPONSIVE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+@media (max-width: 900px) {
+  .results-cols {
+    flex-direction: column;
+  }
+
+  .results-col {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Slider first, calculator second â€” matches mobile spec */
+  .results-col--slider { order: 1; }
+  .results-col--calc   { order: 2; }
+
+  .ba-slider { aspect-ratio: 4 / 3; } /* wider on mobile */
+}
+
+@media (max-width: 540px) {
+  .calc-card { padding: 22px 18px 26px; }
+
+  .calc-result__val { font-size: 26px; }
+
+  .ba-card__footer {
+    padding: 14px 16px;
+    gap: 4px;
+  }
+
+  .ba-stat strong { font-size: 14px; }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   SPECIFICATIONS SECTION
+   ──────────────────────────────────────────────────────────
+   Desktop: Product image centred in a 700px square stage.
+   8 spec cards placed at cardinal + diagonal positions via
+   absolute positioning — TL, TC, TR, MR, BR, BC, BL, ML.
+   Each card connects to the centre with a hairline + dot.
+
+   Mobile (≤900px): stage collapses, product stacks above,
+   specs become a 2-col grid of plain cards below.
+
+   All values use existing design tokens. No new variables.
+══════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════
+   MARQUEE — Trust-signal scroll strip
+   ─────────────────────────────────────────────────────────
+   Layout: single overflow:hidden row.
+   Animation: CSS @keyframes translateX — GPU composited,
+   zero layout recalculation, zero JS.
+
+   Duplicate-set technique:
+     Two identical .pep-marquee__set divs sit inline.
+     The animation shifts the whole .pep-marquee__track
+     left by exactly one set width (50% of track total).
+     When it reaches -50% the keyframe resets to 0 —
+     visually seamless because set 2 is identical to set 1.
+══════════════════════════════════════════════════════════ */
+.pep-marquee {
+  overflow: hidden;
+  background: var(--c-bg-soft);
+  border-top:    1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+  padding: 18px 0;
+  /* Prevent any child from causing layout reflow */
+  contain: layout style;
+
+  background: var(--c-blue);
+  color: #fff;
+}
+
+.pep-marquee__track {
+  display: flex;
+  width: max-content;          /* shrink-wrap both sets */
+  will-change: transform;      /* promote to compositor layer */
+  animation: marqueeScroll 28s linear infinite;
+}
+
+/* Pause on hover — accessibility + usability */
+.pep-marquee:hover .pep-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* shift by one set = seamless loop */
+}
+
+.pep-marquee__set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;              /* never wrap */
+}
+
+.pep-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 clamp(20px, 3vw, 40px);
+  font-family: var(--f);
+  font-size: clamp(12px, 1.2vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--c-text-2);
+  white-space: nowrap;
+  user-select: none;
+
+  color: #fff;
+}
+
+.pep-marquee__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  flex-shrink: 0;
+  opacity: 1;
+}
+
+
+
+/* =================================================================
+   ONLINE CARE  --  .pep-care  /  .care-*
+   Loading-reveal section after #doctors.
+   All values use :root tokens. Zero global changes.
+   Animation handled by initCare() in main.js.
+================================================================= */
+.pep-care {
+  background: var(--c-bg-soft);
+  padding: var(--py) 0;
+  position: relative;
+}
+
+.pep-care::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .12;
+  pointer-events: none;
+}
+
+/* Section header */
+.pep-care__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto clamp(28px, 3.5vw, 44px);
+}
+
+/* Items container */
+.pep-care__grid {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Individual item */
+.care-item {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: clamp(16px, 2.5vw, 30px);
+  padding: clamp(16px, 2.5vw, 28px) 0;
+  border-bottom: 1px solid var(--c-border);
+  /* opacity/transform set by GSAP before reveal */
+}
+
+.care-item:last-child {
+  border-bottom: none;
+}
+
+/* Icon — spans both text row and bar row */
+.care-icon {
+  grid-row: 1 / 3;
+  padding-top: 2px;
+}
+
+.care-icon svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+/* Text */
+.care-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.care-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 6px;
+}
+
+.care-title {
+  font-family: var(--f);
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 800;
+  color: var(--c-text);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin: 0 0 8px;
+}
+
+.care-body {
+  font-size: clamp(14px, 1.2vw, 15px);
+  color: var(--c-muted);
+  line-height: 1.72;
+  margin: 0;
+  max-width: 520px;
+}
+
+/* Progress / loading bar */
+.care-bar {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 14px;
+  height: 3px;
+  background: var(--c-blue-100);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.care-bar__fill {
+  height: 100%;
+  width: 0%;          /* animated to data-w value by GSAP */
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--c-blue-lt), var(--c-blue));
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .care-item {
+    grid-template-columns: 38px 1fr;
+    column-gap: 14px;
+  }
+  .care-icon svg { width: 34px; height: 34px; }
+}
+
+/* Reduced motion: stop animation, show as static row */
+@media (prefers-reduced-motion: reduce) {
+  .pep-marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .pep-marquee__set:last-child {
+    display: none; /* hide duplicate when static */
+  }
+}
+
+.pep-specs {
+  background: var(--c-bg);
+  padding: var(--py) 0;
+  position: relative;
+}
+
+
+/* Same thin top separator as .pep-results */
+.pep-specs::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .18;
+}
+
+.pep-specs__wrap {
+  padding: 0 var(--px);
+}
+
+.specs-header {
+  margin-bottom: 48px;
+}
+
+/* ── Orbit stage ────────────────────────────────────────
+   Fixed 700×700 square, centred. Spec nodes are
+   absolutely positioned relative to this container.
+────────────────────────────────────────────────────────*/
+.specs-stage {
+  position: relative;
+  width: 700px;
+  height: 700px;
+  margin: 0 auto;
+}
+
+/* ── Product ──────────────────────────────────────────── */
+.specs-product {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.specs-product__glow {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.specs-product__img {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: auto;
+  filter:
+    drop-shadow(0 20px 40px rgba(15,23,42,.14))
+    drop-shadow(0 4px 8px rgba(37,99,235,.10));
+  /* Subtle idle float — same keyframe as heroCard */
+  animation: heroFloat 4s ease-in-out infinite;
+}
+
+/* Concentric decorative rings */
+.specs-product__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--c-blue-100);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.specs-product__ring--1 {
+  width: 260px;
+  height: 260px;
+  opacity: .5;
+}
+
+.specs-product__ring--2 {
+  width: 340px;
+  height: 340px;
+  opacity: .25;
+}
+
+/* ── Orbit ring wrapper ──────────────────────────────────
+   Fills stage exactly. GSAP rotates this element as a whole.
+   Product sits outside — stays stationary.
+   Nodes inside are counter-rotated so text stays upright.
+────────────────────────────────────────────────────────*/
+.specs-orbit {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+}
+
+/* ── Spec nodes — positioned by JS at init ───────────────
+   JS sets left/top once. GSAP rotates orbit wrapper and
+   counter-rotates each node. transform-origin center centre
+   ensures counter-rotation pivots on the node's own centre.
+──────────────────────────────────────────────────────── */
+.spec-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  transform-origin: center center;
+  will-change: transform;   /* promoted layer — smooth counter-rotation */
+}
+
+/* ── Card ──────────────────────────────────────────────── */
+.spec-node__card {
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  box-shadow: var(--sh-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 172px;
+  flex-shrink: 0;
+  /* --rot set per-node below. Hover composes rotate + lift together. */
+  transform: rotate(var(--rot, 0deg));
+  transition: border-color .25s ease, box-shadow .25s ease, transform .3s var(--ease);
+}
+
+.spec-node__card:hover {
+  border-color: var(--c-blue-200);
+  box-shadow: var(--sh-lg), 0 0 0 3px var(--c-blue-50);
+  /* Keep rotation, add lift — compose both so neither is lost */
+  transform: rotate(var(--rot, 0deg)) translateY(-4px);
+}
+
+.spec-node__num {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  line-height: 1;
+}
+
+.spec-node__title {
+  font-size: 15px;        /* ↑ was 13px */
+  font-weight: 700;
+  color: var(--c-text);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.spec-node__body {
+  font-size: 12.5px;      /* ↑ was 11px */
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* ── Connector dot ─────────────────────────────────────── */
+.spec-node__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1.5px var(--c-blue-200);
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+/* ── Connector line ────────────────────────────────────── */
+.spec-node__line {
+  height: 1px;
+  background: var(--c-blue-100);
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════════════════════
+   NODE POSITIONS — set entirely by JS (initSpecs).
+   CSS only provides flex-direction defaults; JS overwrites
+   top/left and transform for every node at init time.
+   The named position classes (--tl etc.) are kept in HTML
+   for semantic reference only — they no longer carry layout.
+════════════════════════════════════════════════════════ */
+
+/* Base: all nodes share these flex defaults.
+   JS overrides top/left/transform per node. */
+.spec-node--tl,
+.spec-node--tc,
+.spec-node--tr,
+.spec-node--mr,
+.spec-node--br,
+.spec-node--bc,
+.spec-node--bl,
+.spec-node--ml {
+  flex-direction: row;    /* JS may override per-quadrant if needed */
+  gap: 0;
+}
+
+/* Connector line default width — JS overrides per node */
+.spec-node__line { width: 40px; }
+
+/* Card tilt — same subtle anti-clockwise on all nodes */
+.spec-node--tl .spec-node__card,
+.spec-node--tc .spec-node__card,
+.spec-node--tr .spec-node__card,
+.spec-node--mr .spec-node__card,
+.spec-node--br .spec-node__card,
+.spec-node--bc .spec-node__card,
+.spec-node--bl .spec-node__card,
+.spec-node--ml .spec-node__card { --rot: -3deg; }
+
+
+/* ── Specs CTA ──────────────────────────────────────────── */
+.specs-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 64px;
+  text-align: center;
+}
+
+.specs-cta__note {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-muted);
+  letter-spacing: .3px;
+}
+
+
+/* ════════════════════════════════════════════════════════
+   SPECS RESPONSIVE
+════════════════════════════════════════════════════════ */
+
+/* after */
+@media (max-width: 900px) {
+
+  /* Clip container: prevents the 700px stage from causing horizontal scroll.
+     overflow:hidden here, not on body, so other sections are unaffected. */
+  .pep-specs__wrap {
+    overflow: hidden;
+  }
+
+  /* Stage keeps its 700×700 square so JS orbit geometry is unchanged.
+     Scale from the true centre (50% 0) so it stays horizontally centred.
+     margin-left/right: auto + left:50% translateX(-50%) centres the 700px
+     block regardless of parent padding. */
+  .specs-stage {
+    width: 700px !important;
+    height: 700px !important;
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: 0;
+    margin-right: 0;
+    transform-origin: top center;
+    transform: translateX(-50%) scale(var(--specs-scale, 0.55));
+    margin-bottom: calc((700px * var(--specs-scale, 0.55)) - 700px);
+  }
+
+  /* Orbit wrapper stays absolute + JS-owned — do NOT override */
+  .specs-orbit {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  /* Product keeps absolute centre position */
+  .specs-product {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+  }
+
+  .specs-product__ring { display: none; }
+
+  /* Nodes stay absolute + JS-positioned — do NOT override */
+  .spec-node {
+    position: absolute;
+    will-change: transform;
+  }
+
+  .specs-cta { margin-top: 40px; }
+}
+/* remove the old 480px single-col override — no longer needed */
+
+
+/* ══════════════════════════════════════════════════════════
+   HOW IT WORKS — scoped: .pep-hiw / .hiw-*
+   Static 3-column card layout. No pin. No horizontal scroll.
+   All :root tokens. Zero global changes.
+══════════════════════════════════════════════════════════ */
+
+/* ── Section wrapper ─────────────────────────────────── */
+.pep-hiw {
+  background: var(--c-bg-soft);
+  position: relative;
+  padding: var(--py) 0;
+}
+
+.pep-hiw::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .18;
+  pointer-events: none;
+}
+
+/* ── Section header ──────────────────────────────────── */
+.pep-hiw > .container-xl:first-child {
+  padding-bottom: clamp(32px, 4vw, 52px);
+}
+
+.hiw-header {
+  margin-bottom: 0;
+}
+
+/* ── Steps wrapper — full-width container ────────────── */
+.hiw-steps-wrap {
+  /* inherits container-xl padding */
+}
+
+/* Bootstrap row that holds the 3 cards + 2 connectors */
+.hiw-steps-row {
+  align-items: stretch;
+}
+
+/* ── Single step card ────────────────────────────────── */
+/*
+  Each .hiw-card is a Bootstrap col-lg-4.
+  Inside: icon centred at top, then text below.
+  GSAP sets opacity:0 before viewport; reveal on scroll.
+*/
+.hiw-card {
+  padding: 0 clamp(12px, 2vw, 24px);
+}
+
+.hiw-card__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: clamp(22px, 3vw, 36px) clamp(18px, 2.5vw, 28px);
+  box-shadow: var(--sh-md);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hiw-card__inner:hover {
+  box-shadow: var(--sh-lg), 0 0 0 4px var(--c-blue-50);
+  border-color: var(--c-blue-200);
+}
+
+/* ── Icon area ───────────────────────────────────────── */
+.hiw-card__visual {
+  margin-bottom: clamp(14px, 2vw, 24px);
+}
+
+.hiw-icon-wrap {
+  position: relative;
+  width: clamp(120px, 14vw, 160px);
+  height: clamp(120px, 14vw, 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hiw-svg {
+  width: 76%;
+  height: 76%;
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+  overflow: visible;
+}
+
+.hiw-icon-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--c-blue-200);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hiw-icon-ring--1 { width: 80%;  height: 80%;  opacity: 0.45; }
+.hiw-icon-ring--2 { width: 100%; height: 100%; opacity: 0.22; }
+
+.hiw-glow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c-blue-100) 0%, transparent 70%);
+  filter: blur(16px);
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ── Text area ───────────────────────────────────────── */
+.hiw-card__text {
+  position: relative;
+  width: 100%;
+}
+
+/* Ghost step number — sits behind heading */
+.hiw-num {
+  position: absolute;
+  top: -0.3em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(64px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-blue-100);
+  letter-spacing: -4px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.hiw-step__label {
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.hiw-step__heading {
+  font-family: var(--f);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: var(--c-text);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-step__body {
+  color: var(--c-muted);
+  font-size: clamp(13.5px, 1.1vw, 15px);
+  line-height: 1.72;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-step__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-step__list li {
+  font-size: clamp(13px, 1vw, 14px);
+  font-weight: 500;
+  color: var(--c-text-2);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.hiw-step__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-blue);
+}
+
+/* ── Arrow connectors between cards ─────────────────── */
+/*
+  Visible only on desktop (lg+). Hidden on mobile — Bootstrap
+  col stacks the cards vertically so arrows make no sense.
+*/
+.hiw-connector {
+  display: none; /* hidden by default (mobile-first) */
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.hiw-connector svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+@media (min-width: 992px) {
+  /* Connectors sit between Bootstrap cols — use flex trick */
+  .hiw-steps-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .hiw-connector {
+    display: flex;
+  }
+
+  /* Tighten card padding on lg so connectors fit cleanly */
+  .hiw-card {
+    padding: 0 clamp(8px, 1vw, 16px);
+  }
+
+  
+}
+
+/* ── Mobile ──────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .hiw-card {
+    padding: 0;
+    margin-bottom: 16px;
+  }
+
+  .hiw-card:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hiw-svg { animation: none !important; }
+  .hiw-card { opacity: 1 !important; transform: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   DESIGNED BY LEADING DOCTORS — scoped to .pep-doctors
+   All colours use :root tokens. Zero global changes.
+══════════════════════════════════════════════════════════ */
+
+.peptivo-doctors-section {
+  padding: clamp(64px, 8vw, 104px) 0 clamp(48px, 6vw, 80px);
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+/* Subtle top separator */
+.peptivo-doctors-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #2563eb, transparent);
+  opacity: .12;
+  pointer-events: none;
+}
+
+/* ── Section header ────────────────────────────────────────── */
+.pds-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto clamp(24px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Eyebrow label */
+.pds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #2563eb;
+  margin: 0;
+}
+
+.pds-eyebrow__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+  animation: pdsDotPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pdsDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .4; transform: scale(.55); }
+}
+
+.pds-title {
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pds-title em {
+  font-style: italic;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.pds-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ARC LAYOUT
+   ─────────────────────────────────────────────────────────────
+   .pds-arc          — relative container; height drives the
+                       vertical space the arc occupies.
+   .pds-arc__ring    — SVG arc line, absolutely positioned.
+   .pds-arc__track   — flex row, centred; each card is moved
+                       with translateX + rotate(--rot) so they
+                       fan out along the arc path.
+
+   Arc math (CSS only):
+   ─────────────────────
+   Cards sit on an imaginary circle. The center card is at 0°,
+   inner pair ±18°, outer pair ±38°.
+   Each card is translated UP by a fixed radius (--arc-r) then
+   rotated around the track's centre point.
+   Because transform-origin is the card's own centre, we use
+   a combination of translateY(-var(--arc-r)) + rotate to
+   simulate arc positioning without JS calculations.
+═══════════════════════════════════════════════════════════════ */
+
+.pds-arc {
+  position: relative;
+  /* Reduced height — cards now sit much closer to the heading */
+  height: clamp(220px, 28vw, 360px);
+  margin-bottom: clamp(16px, 2.5vw, 32px);
+}
+
+/* SVG arc line — fills the container */
+.pds-arc__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Card track — anchored to the bottom-centre of the arc */
+.pds-arc__track {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;          /* cards hang from their bottom edge */
+  justify-content: center;
+  gap: 0;                          /* gap is handled by the rotation offset */
+  width: 100%;
+  pointer-events: none;            /* re-enabled on cards below */
+}
+
+/* ── Individual doctor card ──────────────────────────────── */
+/*
+  Arc positioning:
+  1. translateX(-50%)  — centre each card on its pivot point
+  2. rotate(var(--rot)) — fan out along the arc
+  3. translateY(-var(--pds-lift)) — push up from baseline
+
+  The JS entrance animation tweens from rotate(--rot * 2) + opacity 0
+  back to the natural CSS position.
+*/
+
+.peptivo-doctors-section .pds-card {
+  --pds-lift: clamp(20px, 3vw, 40px);   /* vertical rise from baseline */
+  --pds-w:    clamp(100px, 11vw, 150px); /* card width — visually balanced */
+
+  position: absolute;                   /* each card absolutely inside track */
+  bottom: 0;
+  left: 50%;
+
+  /* Arc fan transform — rotate around bottom-centre of the track */
+  transform-origin: 50% 100%;
+  transform:
+    translateX(-50%)
+    rotate(var(--rot, 0deg))
+    translateY(calc(-1 * var(--pds-lift)));
+
+  width: var(--pds-w);
+  aspect-ratio: 1.2 / 1.7;    /* ~portrait card */
+
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: all;
+  transition:
+    border-color .25s ease,
+    box-shadow   .3s ease,
+    transform    .4s cubic-bezier(.19,1,.22,1);
+
+  /* Counter-rotate the inner content so text is always upright */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Counter-rotate content so it stays readable despite card rotation */
+.peptivo-doctors-section .pds-card > * {
+  transform: rotate(calc(-1 * var(--rot, 0deg)));
+  transform-origin: center center;
+}
+
+/* Card image — fills top ~70% */
+.peptivo-doctors-section .pds-card img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  display: block;
+  /* Counter-rotation applied via parent rule above — undo it for img */
+  transform: none !important;
+}
+
+/* Name label at bottom */
+.peptivo-doctors-section .pds-card .doctor-name {
+  font-size: clamp(14px, 1vw, 1rem);
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  padding: 6px 6px 2px;
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Override the parent's counter-rotate (rotate(calc(-1 * --rot))).
+     The parent rule partially corrects tilt but at ±38° the name still
+     looks skewed. Force it fully upright with rotate(0deg). */
+  transform: rotate(0deg);
+}
+
+/* Hide degree + feedback in thumbnail — shown only in stage */
+.peptivo-doctors-section .pds-card .doctor-degree,
+.peptivo-doctors-section .pds-card .doctor-feedback {
+  display: none;
+}
+
+/* ── Active card state ── */
+.peptivo-doctors-section .pds-card.active {
+  border-color: #2563eb;
+  box-shadow:
+    0 0 0 3px #dbeafe,
+    0 12px 40px rgba(37,99,235,.22);
+  /* Nudge it slightly toward the viewer */
+  transform:
+    translateX(-50%)
+    rotate(var(--rot, 0deg))
+    translateY(calc(-1 * var(--pds-lift) - 8px))
+    scale(1.06);
+}
+
+/* ── Hover state ── */
+.peptivo-doctors-section .pds-card:hover:not(.active) {
+  border-color: #bfdbfe;
+  box-shadow: 0 8px 24px rgba(37,99,235,.12);
+  transform:
+    translateX(-50%)
+    rotate(var(--rot, 0deg))
+    translateY(calc(-1 * var(--pds-lift) - 4px));
+}
+
+/* ── Card position offsets along the arc ──────────────────
+   Each card is absolutely positioned; left offset spreads
+   them horizontally while the rotation fans them on the arc.
+   Values tuned to match the sketch proportions.
+──────────────────────────────────────────────────────────── */
+.peptivo-doctors-section .pds-arc__track .pds-card:nth-child(1) {
+  left: calc(50% - clamp(220px, 26vw, 340px));
+}
+.peptivo-doctors-section .pds-arc__track .pds-card:nth-child(2) {
+  left: calc(50% - clamp(110px, 13vw, 170px));
+}
+.peptivo-doctors-section .pds-arc__track .pds-card:nth-child(3) {
+  left: 50%;
+  /* Center card — lift scaled to new arc height */
+  --pds-lift: clamp(50px, 7vw, 100px);
+}
+.peptivo-doctors-section .pds-arc__track .pds-card:nth-child(4) {
+  left: calc(50% + clamp(110px, 13vw, 170px)); /* true mirror of card 2 */
+}
+.peptivo-doctors-section .pds-arc__track .pds-card:nth-child(5) {
+  left: calc(50% + clamp(220px, 26vw, 340px)); /* true mirror of card 1 */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CENTER STAGE
+   Displayed below the arc. JS writes content here on click.
+═══════════════════════════════════════════════════════════════ */
+.pds-stage {
+  max-width: 720px;
+  margin: 0 auto clamp(24px, 4vw, 40px);
+  text-align: center;
+  /* Initially invisible — JS fades it in on first click */
+  opacity: 0;
+  transform: translateY(16px);
+  transition: none;  /* GSAP handles all transitions */
+}
+
+/* Shown state — toggled by JS after first activation */
+.pds-stage.pds-stage--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pds-stage__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.pds-stage__img {
+  width:  clamp(80px, 12vw, 140px);
+  height: clamp(80px, 12vw, 140px);
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center top;
+  border: 2.5px solid #2563eb;
+  box-shadow: 0 8px 32px rgba(37,99,235,.20);
+  flex-shrink: 0;
+}
+
+.pds-stage__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pds-stage__degree {
+  color: #2563eb;
+}
+
+.pds-stage__name {
+  font-size: clamp(26px, 3.2vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.5px;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pds-stage__feedback {
+  font-size: 15px;
+  line-height: 1.78;
+  color: #64748b;
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Credential badges */
+.pds-stage__badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+
+.pds-stage__badges li {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 9999px;
+  padding: 5px 14px;
+}
+
+/* Footnote */
+.pds-footnote {
+  text-align: center;
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: .4px;
+  margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ≤ 767px
+   ─────────────────────────────────────────────────────────────
+   Arc disabled entirely.
+   Cards display as a simple 2-column grid.
+   All GSAP animations are skipped by JS on mobile.
+═══════════════════════════════════════════════════════════════ */
+
+
+/* ── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .peptivo-doctors-section .pds-card,
+  .peptivo-doctors-section .pds-stage {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  /* Immediately show everything that would otherwise animate */
+  .hero-anim,
+  .hero-anim--right,
+  .reveal-up,
+  #resultsSlider,
+  #resultsCalc,
+  #specsProduct,
+  .spec-node {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+
+
+/* =================================================================
+   ONLINE CARE  --  .pep-care  /  .care-*
+   Loading-reveal section after #doctors.
+   All values use :root tokens. Zero global changes.
+   Animation handled by initCare() in main.js.
+================================================================= */
+.pep-care {
+  background: var(--c-bg-soft);
+  padding: var(--py) 0;
+  position: relative;
+}
+
+.pep-care::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .12;
+  pointer-events: none;
+}
+
+/* Section header */
+.pep-care__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto clamp(28px, 3.5vw, 44px);
+}
+
+/* Items container */
+.pep-care__grid {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Individual item — Flexbox row, zigzag via row-reverse on even */
+.care-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(16px, 2.5vw, 28px) 0;
+  border-bottom: 1px solid var(--c-border);
+  /* opacity/transform set by GSAP before viewport reveal */
+}
+
+/* Even steps: icon on right, text on left */
+.care-item--even {
+  flex-direction: row-reverse;
+}
+
+.care-item:last-child {
+  border-bottom: none;
+}
+
+/* Icon column — fixed width, never shrinks */
+.care-icon {
+  flex: 0 0 auto;
+  padding-top: 2px;
+}
+
+.care-icon svg {
+  width: 56px;          /* increased from 42px for visual prominence */
+  height: 56px;
+  display: block;
+  will-change: transform; /* float animation — promote to compositor */
+}
+
+/* Text + bar column — grows to fill remaining space */
+.care-text-wrap {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.care-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 6px;
+}
+
+.care-title {
+  font-family: var(--f);
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 800;
+  color: var(--c-text);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin: 0 0 8px;
+}
+
+.care-body {
+  font-size: clamp(14px, 1.2vw, 15px);
+  color: var(--c-muted);
+  line-height: 1.72;
+  margin: 0;
+}
+
+/* Progress / loading bar — inside text-wrap, below body text */
+.care-bar {
+  margin-top: 14px;
+  height: 3px;
+  background: var(--c-blue-100);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.care-bar__fill {
+  height: 100%;
+  width: 0%;          /* animated to data-w by GSAP */
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--c-blue-lt), var(--c-blue));
+}
+
+/* Mobile — always icon-left, no zigzag */
+@media (max-width: 767px) {
+  .care-item,
+  .care-item--even {
+    flex-direction: row;
+    gap: 14px;
+  }
+  .care-icon svg { width: 44px; height: 44px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .care-item         { opacity: 1 !important; transform: none !important; }
+  .care-bar__fill    { transition: none !important; }
+}
+
+
+/* =================================================================
+   BEFORE / AFTER STACK  —  .pep-ba-stack / .bas-*
+   Scoped 100% to this section. Zero global changes.
+   Two-column flex layout: copy/stats left, stacking cards right.
+   Cards auto-cycle via initBeforeAfterStack() in main.js.
+================================================================= */
+
+/* ── Section shell ─────────────────────────────────────────── */
+.pep-ba-stack {
+  background: var(--c-bg-soft);
+  padding: var(--py) 0;
+  background: rgba(255, 255, 255, .97);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top gradient rule (matches .pep-results / .pep-science) */
+.pep-ba-stack::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity: .18;
+  pointer-events: none;
+}
+
+/* Faint radial glow — purely decorative */
+.pep-ba-stack::after {
+  content: '';
+  position: absolute;
+  top: 0; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse at center, var(--c-blue-50) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ── Two-column layout ─────────────────────────────────────── */
+.bas-layout {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4.5vw, 60px);
+}
+
+/* ── LEFT — copy column ────────────────────────────────────── */
+.bas-copy {
+  flex: 0 0 auto;
+  width: clamp(260px, 38%, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Stats row */
+.bas-stats {
+  list-style: none;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+  background: var(--c-blue);
+}
+
+.bas-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 12px;
+  gap: 6px;
+  color: #fff;
+}
+
+.bas-stat__div {
+  width: 1px;
+  background: var(--c-border);
+  align-self: stretch;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.bas-stat__val {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 800;
+  color: var(--c-blue);
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.bas-stat__val span {
+  font-size: 0.55em;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.bas-stat__label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--c-muted);
+  line-height: 1.45;
+  letter-spacing: 0.2px;
+  color: #fff;
+}
+
+/* Body copy */
+.bas-body {
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* Pagination dots */
+.bas-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bas-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--c-border);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+  flex-shrink: 0;
+}
+
+.bas-dot--active {
+  background: var(--c-blue);
+  width: 24px;
+  border-radius: 4px;
+  transform: none;
+}
+
+/* ── RIGHT — stacking stage ────────────────────────────────── */
+.bas-stage {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  /* Height set by JS to match card height; gives the stack room */
+  /* height: 480px; */
+  height: 700px;
+} 
+
+/* ── Individual card ───────────────────────────────────────── */
+.bas-card {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-xl);
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--c-border);
+  /* JS sets transform-origin, scale, translateY, zIndex, opacity */
+  will-change: transform, opacity;
+  transform-origin: center bottom;
+}
+
+/* Before / After split */
+.bas-card__split {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.bas-card__half {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.bas-card__half img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Vertical divider between halves */
+.bas-card__split::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: rgba(255,255,255,0.7);
+  z-index: 2;
+  transform: translateX(-50%);
+}
+
+/* Tags (BEFORE / AFTER) */
+.bas-card__tag {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(15,23,42,.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+}
+
+.bas-card__tag--after {
+  background: rgba(37,99,235,.7);
+}
+
+/* Card footer info bar */
+.bas-card__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid var(--c-border);
+  flex-shrink: 0;
+}
+
+.bas-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bas-card__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.bas-card__dur {
+  font-size: 11px;
+  color: var(--c-muted);
+  font-weight: 500;
+}
+
+.bas-card__result {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 800;
+  color: var(--c-blue);
+  letter-spacing: -0.5px;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .bas-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .bas-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .bas-stage {
+    height: 600px;
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 540px) {
+  .bas-stage {
+    height: 360px;
+  }
+
+  .bas-card__info {
+    padding: 12px 16px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bas-card {
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
+
+
+/* =================================================================
+   BENEFITS SECTION  —  .pep-bnf / .bnf-*
+   Scoped 100%. Only :root tokens — zero hardcoded colours.
+   Light soft background → matches pep-science / pep-care.
+   Layout: Bootstrap 3-col outer · Flexbox inner column.
+   JS: initBenefits() — ScrollTrigger entrance + GSAP float loop.
+================================================================= */
+
+/* ── Section shell ──────────────────────────────────────────── */
+.pep-bnf {
+  background : var(--c-bg-soft);   /* #f8faff — same as pep-science, pep-care */
+  padding    : var(--py) 0;
+  position   : relative;
+  overflow   : hidden;
+}
+
+/* Top hairline separator — identical pattern to pep-results, pep-care */
+.pep-bnf::before {
+  content    : '';
+  position   : absolute;
+  top: 0; left: 0; right: 0;
+  height     : 3px;
+  background : linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity    : .18;
+  pointer-events: none;
+}
+
+/* Section header — inherits all global .section-title / .section-sub colours */
+.pep-bnf__header {
+  max-width: 700px;
+}
+
+/* ── Benefit columns (Flexbox stacks) ───────────────────────── */
+.bnf-col {
+  display        : flex;
+  flex-direction : column;
+  gap            : 0;             /* dividers via border-bottom on items */
+}
+
+/* ── Single benefit item ────────────────────────────────────── */
+/*
+   Flex row: [icon circle] [text block]
+   Mirrors the care-item pattern (same token set, same spacing scale).
+   GSAP sets opacity:0 + x:±60 before viewport; clears after entrance.
+*/
+.bnf-item {
+  display     : flex;
+  flex-direction: row;
+  align-items : flex-start;
+  gap         : 16px;
+  padding     : 18px 0;
+  border-bottom: 1px solid var(--c-border);  /* --c-border: #e2e8f0 */
+}
+
+.bnf-item:last-child {
+  border-bottom: none;
+}
+
+/* Icon circle wrapper */
+.bnf-item__icon {
+  flex       : 0 0 auto;
+  width      : 48px;
+  height     : 48px;
+  /* will-change: transform promotes float tween to compositor layer */
+  will-change: transform;
+}
+
+.bnf-item__icon svg {
+  width  : 48px;
+  height : 48px;
+  display: block;
+}
+
+/* Text block */
+.bnf-item__text {
+  flex    : 1 1 0;
+  min-width: 0;
+}
+
+.bnf-item__title {
+  font-family   : var(--f);
+  font-size     : clamp(15px, 1.5vw, 17px);
+  font-weight   : 700;
+  color         : var(--c-text);       /* --c-text: #0f172a */
+  line-height   : 1.25;
+  letter-spacing: -0.2px;
+  margin        : 0 0 6px;
+}
+
+.bnf-item__body {
+  font-family: var(--f);
+  font-size  : clamp(13px, 1.1vw, 14px);
+  font-weight: 400;
+  color      : var(--c-muted);         /* --c-muted: #64748b */
+  line-height: 1.68;
+  margin     : 0;
+}
+
+/* ── Centre bottle column ───────────────────────────────────── */
+.bnf-bottle {
+  position       : relative;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  padding        : 32px 0;
+}
+
+/* Two subtle concentric rings — same token as specs-product__ring */
+.bnf-bottle__ring {
+  position     : absolute;
+  top          : 50%;
+  left         : 50%;
+  transform    : translate(-50%, -50%);
+  border-radius: 50%;
+  border       : 1px solid var(--c-blue-100);  /* --c-blue-100: #dbeafe */
+  pointer-events: none;
+}
+
+.bnf-bottle__ring--1 {
+  width : 220px;
+  height: 220px;
+  opacity: .55;
+}
+
+.bnf-bottle__ring--2 {
+  width : 300px;
+  height: 300px;
+  opacity: .28;
+}
+
+.bnf-bottle__img {
+  position  : relative;
+  z-index   : 1;
+  width     : clamp(140px, 18vw, 220px);
+  height    : auto;
+  /* Same drop-shadow treatment as specs-product__img */
+  filter    :
+    drop-shadow(0 24px 48px rgba(15,23,42,.12))
+    drop-shadow(0 4px 10px rgba(37,99,235,.10));
+  /* GSAP handles the float — no CSS animation here to avoid tween conflicts */
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  /* Stack bottle above benefits on tablet/mobile */
+  .bnf-bottle {
+    padding: 24px 0 8px;
+  }
+
+  .bnf-bottle__ring--1 { width: 180px; height: 180px; }
+  .bnf-bottle__ring--2 { width: 250px; height: 250px; }
+
+  .bnf-item {
+    padding: 18px 0;
+  }
+
+  .bnf-item__icon,
+  .bnf-item__icon svg {
+    width : 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 575px) {
+  .bnf-item { gap: 14px; }
+
+  .bnf-item__title { font-size: 14px; }
+  .bnf-item__body  { font-size: 13px; }
+}
+
+/* Reduced motion — cancel GSAP float; show items at full opacity immediately */
+@media (prefers-reduced-motion: reduce) {
+  .bnf-item       { opacity: 1 !important; transform: none !important; }
+  .bnf-bottle__img { opacity: 1 !important; transform: none !important; }
+  .bnf-item__icon  { will-change: auto; }
+}
+
+
+/* =================================================================
+   SWITCH TO PEPTIVO  —  .pep-switch / .swb-*
+   Scoped 100% to this section. Zero global changes.
+   COLOR PALETTE: strictly --c-* tokens from :root only.
+     Section bg  : --c-bg-soft   (#f8faff)  — matches pep-science, pep-care
+     Card bg     : --c-bg        (#ffffff)  — matches ba-card, hiw-card
+     Card border : --c-border    (#e2e8f0)  — matches all site cards
+     Body text   : --c-text      (#0f172a)
+     Sub text    : --c-muted     (#64748b)
+     Accent      : --c-blue      (#2563eb)
+     Accent tint : --c-blue-50   (#eff6ff)  — icon circles, product bg
+     Accent ring : --c-blue-100  (#dbeafe)  — same as bnf-bottle__ring
+================================================================= */
+
+/* ── Section shell ─────────────────────────────────────────── */
+.pep-switch {
+  background : var(--c-bg-soft);
+  padding    : var(--py) 0 0;     /* bottom-0: cards bleed to the fade */
+  position   : relative;
+  overflow   : hidden;
+}
+
+/* Top hairline — identical to pep-results, pep-care, pep-bnf */
+.pep-switch::before {
+  content   : '';
+  position  : absolute;
+  top: 0; left: 0; right: 0;
+  height    : 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity   : .18;
+  pointer-events: none;
+}
+
+/* Watermark — subtle tint using brand blue at very low opacity */
+.pep-switch__wm {
+  position      : absolute;
+  top: 32%;
+  left          : 50%;
+  transform     : translate(-50%, -48%);
+  font-family   : var(--f);
+  font-size     : clamp(70px, 18vw, 240px);
+  font-weight   : 900;
+  letter-spacing: -4px;
+  color         : var(--c-blue-100);  /* --c-blue-100 at natural opacity ≈ very faint */
+  opacity: .45;
+  white-space   : nowrap;
+  pointer-events: none;
+  user-select   : none;
+  line-height   : 1;
+  z-index       : 0;
+}
+
+/* Radial glow — matches specs-product__glow, pep-hero accent */
+.pep-switch::after {
+  content   : '';
+  position  : absolute;
+  top       : -100px;
+  left      : 50%;
+  transform : translateX(-50%);
+  width     : 800px;
+  height    : 500px;
+  background: radial-gradient(ellipse at center, var(--c-blue-50) 0%, transparent 70%);
+  pointer-events: none;
+  z-index   : 0;
+}
+
+/* All children above watermark + glow */
+.pep-switch__inner {
+  position: relative;
+  z-index : 1;
+  padding : 0 var(--px);
+}
+
+/* ── Header — reuses global .section-title / .section-sub exactly ── */
+.pep-switch__header {
+  text-align    : center;
+  max-width     : 680px;
+  margin        : 0 auto clamp(36px, 4.5vw, 56px);
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : 16px;
+}
+
+/* .pep-label works as-is (already --c-blue) — no modifier needed */
+
+.pep-switch__title {
+  font-family   : var(--f);
+  font-size     : clamp(36px, 5vw, 62px);
+  font-weight   : 800;
+  line-height   : 1.08;
+  letter-spacing: -1.5px;
+  color         : var(--c-text);       /* #0f172a — same as .section-title */
+}
+
+.pep-switch__title em {
+  font-style : italic;
+  font-weight: 700;
+  color      : var(--c-blue);          /* #2563eb — same as .section-title em */
+}
+
+.pep-switch__sub {
+  font-size  : clamp(15px, 1.4vw, 17px);
+  font-weight: 400;
+  line-height: 1.72;
+  color      : var(--c-muted);         /* #64748b — same as .section-sub */
+  max-width  : 520px;
+}
+
+/* ── Row ───────────────────────────────────────────────────── */
+.pep-switch__row {
+  align-items: flex-end !important;
+}
+
+/* ── Card base ─────────────────────────────────────────────── */
+.swb-card {
+  position      : relative;
+  border-radius : var(--r-xl) var(--r-xl) 0 0;
+  overflow      : visible;   /* badges can overflow */
+  display       : flex;
+  flex-direction: column;
+  transition    : transform 0.3s var(--ease);
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+}
+
+.swb-card__body {
+  position       : relative;
+  flex           : 1;
+  display        : flex;
+  align-items    : flex-end;
+  justify-content: center;
+  border-radius  : var(--r-xl) var(--r-xl) 0 0;
+  overflow       : hidden;
+}
+
+/* ── Product cards ─────────────────────────────────────────── */
+.swb-card--product .swb-card__body {
+  background   : var(--c-blue-50);    /* #eff6ff — same as bnf-item__icon circle fill */
+  border       : 1.5px solid var(--c-blue-100); /* #dbeafe — matches bnf-bottle__ring */
+  border-bottom: none;
+  padding      : clamp(24px, 3vw, 40px) clamp(18px, 2.5vw, 28px) 0;
+  min-height   : clamp(220px, 30vw, 360px);
+  background: rgba(239, 246, 255, 0.4);
+}
+
+.swb-product-img {
+  width       : clamp(110px, 14vw, 200px);
+  height      : auto;
+  display     : block;
+  filter      :
+    drop-shadow(0 20px 40px rgba(15,23,42,.10))   /* --sh-xl tones */
+    drop-shadow(0 4px 10px rgba(37,99,235,.15));  /* --sh-blue tones */
+  will-change : transform;
+}
+
+/* Footer label strip */
+.swb-card__foot {
+  background   : var(--c-bg);          /* #ffffff */
+  border       : 1.5px solid var(--c-border);
+  border-top   : none;
+  padding      : 14px 20px;
+  display      : flex;
+  flex-direction: column;
+  gap          : 3px;
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+  box-shadow   : var(--sh-sm);
+}
+
+.swb-card__label {
+  font-family   : var(--f);
+  font-size     : 13px;
+  font-weight   : 700;
+  color         : var(--c-text);       /* #0f172a */
+  letter-spacing: 0.2px;
+}
+
+.swb-card__sub {
+  font-size  : 11px;
+  font-weight: 500;
+  color      : var(--c-muted);         /* #64748b */
+  letter-spacing: 0.5px;
+}
+
+/* ── Person / centre card ──────────────────────────────────── */
+.swb-card--person .swb-card__body {
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  overflow     : hidden;
+  min-height   : clamp(300px, 40vw, 480px);
+  background   : var(--c-bg-muted);   /* #f0f4f8 */
+  border       : 1.5px solid var(--c-border);
+  border-bottom: none;
+  border-radius: var(--r-xl) var(--r-xl);
+}
+
+.swb-person-img {
+  width          : 100%;
+  height         : 100%;
+  object-fit     : cover;
+  object-position: center top;
+  display        : block;
+  will-change    : transform;
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+}
+
+/* Stats overlay — uses --c-text-2 tinted bg for readability on photo */
+.swb-person__overlay {
+  position  : absolute;
+  bottom    : 0;
+  left      : 0;
+  right     : 0;
+  padding   : 20px;
+  background: linear-gradient(to top, rgba(15,23,42,.72) 0%, transparent 100%);
+  display   : flex;
+  gap       : 24px;
+  align-items    : flex-end;
+  justify-content: center;
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+}
+
+.swb-person__stat {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : 2px;
+}
+
+/* White text on dark photo overlay is intentional and unavoidable */
+.swb-person__stat strong {
+  font-size     : clamp(20px, 2.5vw, 28px);
+  font-weight   : 800;
+  color         : var(--c-bg);         /* #ffffff — on dark photo overlay */
+  letter-spacing: -0.5px;
+  line-height   : 1;
+}
+
+.swb-person__stat span {
+  font-size  : 11px;
+  font-weight: 500;
+  color      : var(--c-blue-200);      /* #bfdbfe — site token, readable on dark overlay */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Floating benefit badges ───────────────────────────────── */
+.swb-badge {
+  position      : absolute;
+  z-index       : 10;
+  display       : flex;
+  align-items   : center;
+  gap           : 8px;
+  background    : var(--c-bg);         /* #ffffff — same as ba-card, hiw-card */
+  border        : 1.5px solid var(--c-border); /* --c-border: #e2e8f0 */
+  border-radius : var(--r-lg);
+  padding       : 10px 14px;
+  box-shadow    : var(--sh-lg);
+  white-space   : nowrap;
+  will-change   : transform;
+  pointer-events: none;
+}
+
+.swb-badge span {
+  font-family   : var(--f);
+  font-size     : 11px;
+  font-weight   : 700;
+  color         : var(--c-text);       /* #0f172a */
+  line-height   : 1.35;
+  letter-spacing: 0.1px;
+}
+
+.swb-badge svg { flex-shrink: 0; }
+
+/* Badge positions — outside card edges */
+.swb-badge--tl { top: 24px;    left: -20px;  }
+.swb-badge--br { bottom: 60px; right: -20px; }
+.swb-badge--tr { top: 24px;    right: -20px; }
+.swb-badge--bl { bottom: 60px; left: -20px;  }
+
+/* ── Bottom fade — transparent → --c-bg-soft ──────────────── */
+.pep-switch__fade {
+  position  : relative;
+  height    : clamp(80px, 10vw, 140px);
+  background: linear-gradient(to bottom, transparent 0%, var(--c-bg-soft) 100%);
+  margin-top: 0;
+  pointer-events: none;
+  z-index   : 2;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .pep-switch__row { align-items: stretch !important; }
+
+  .swb-badge--tl,
+  .swb-badge--br,
+  .swb-badge--tr,
+  .swb-badge--bl { display: none; }
+
+  .swb-card--product .swb-card__body { min-height: clamp(180px, 42vw, 260px); }
+  .swb-card--person  .swb-card__body { min-height: 280px; }
+  .pep-switch__header { margin-bottom: 36px; }
+}
+
+@media (max-width: 575px) {
+  .swb-product-img { width: clamp(80px, 22vw, 130px); }
+  .swb-person__stat strong { font-size: 18px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .swb-product-img,
+  .swb-person-img,
+  .swb-badge {
+    opacity    : 1 !important;
+    transform  : none !important;
+    will-change: auto;
+  }
+}
+
+
+/* =================================================================
+   FAQ SECTION  —  .pep-faq / .faq-*
+   ─────────────────────────────────────────────────────────────
+   Layout: two-column flex row
+     Left  (.faq-visual)  — sticky visual panel, GSAP-pinned
+     Right (.faq-list)    — accordion items, normal scroll flow
+
+   The section must NOT have overflow:hidden — it would break
+   the GSAP pin spacer. Clipping is handled per-child only.
+
+   All colours: :root tokens only. Zero hardcoded hex values
+   except rgba() shadow helpers consistent with other sections.
+================================================================= */
+
+/* ── Section shell ──────────────────────────────────────────── */
+.pep-faq {
+  background : var(--c-bg);
+  padding    : var(--py) 0;
+  position   : relative;
+  /* NO overflow:hidden — GSAP pin requires free vertical space */
+}
+
+/* Top hairline separator — matches pep-results, pep-care, pep-bnf */
+.pep-faq::before {
+  content   : '';
+  position  : absolute;
+  top: 0; left: 0; right: 0;
+  height    : 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity   : .18;
+  pointer-events: none;
+}
+
+/* ── Two-column body ────────────────────────────────────────── */
+.faq-body {
+  display : flex;
+  gap     : clamp(28px, 4.5vw, 60px);
+  align-items: flex-start;
+}
+
+/* ── LEFT: sticky visual panel ──────────────────────────────── */
+/*
+  position:sticky keeps the panel in place as the right column
+  scrolls. GSAP ScrollTrigger also pins it — both work together.
+  top = nav height + some breathing room.
+*/
+.faq-visual {
+  flex          : 0 0 clamp(280px, 36vw, 460px);
+  position      : sticky;
+  top           : calc(var(--nav-h) + 32px);
+  align-self    : flex-start;
+  /* Entrance hidden state — GSAP reveals on scroll */
+  opacity       : 0;
+  transform     : translateX(-40px);
+}
+
+.faq-visual__card {
+  position     : relative;
+  border-radius: var(--r-xl);
+  background   : var(--c-bg-soft);
+  border       : 1px solid var(--c-border);
+  box-shadow   : var(--sh-lg);
+  overflow     : hidden;
+  aspect-ratio : 3 / 4;
+  display      : flex;
+  align-items  : center;
+  justify-content: center;
+}
+
+/* Decorative concentric rings — matches bnf-bottle__ring */
+.faq-visual__ring {
+  position     : absolute;
+  border-radius: 50%;
+  border       : 1px solid var(--c-blue-100);
+  top: 50%; left: 50%;
+  transform    : translate(-50%, -50%);
+  pointer-events: none;
+}
+.faq-visual__ring--1 { width: 55%;  height: 55%;  opacity: 0.6; }
+.faq-visual__ring--2 { width: 80%;  height: 80%;  opacity: 0.3; }
+
+/* Product image — centred, drop-shadow matches specs-product__img */
+.faq-visual__img {
+  position : relative;
+  z-index  : 2;
+  width    : 45%;
+  height   : auto;
+  filter   :
+    drop-shadow(0 20px 40px rgba(15,23,42,.13))
+    drop-shadow(0 4px 10px rgba(37,99,235,.10));
+  /* GSAP handles float — no CSS animation to avoid tween conflict */
+}
+
+/* Radial glow behind the bottle */
+.faq-visual__glow {
+  position : absolute;
+  inset    : 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c-blue-100) 0%, transparent 70%);
+  filter   : blur(28px);
+  opacity  : 0.5;
+  z-index  : 0;
+  pointer-events: none;
+}
+
+/* ── Floating stat pills ────────────────────────────────────── */
+/*
+  Absolute-positioned inside .faq-visual__card.
+  Match the swb-badge pattern from pep-switch section.
+*/
+.faq-stat {
+  position    : absolute;
+  z-index     : 4;
+  background  : var(--c-bg);
+  border      : 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  box-shadow  : var(--sh-md);
+  padding     : 10px 16px;
+  display     : flex;
+  flex-direction: column;
+  gap         : 2px;
+}
+
+.faq-stat--tl { top: 18px;    left: 18px; }
+.faq-stat--br { bottom: 18px; right: 18px; }
+
+.faq-stat__num {
+  font-family  : var(--f);
+  font-size    : clamp(16px, 1.8vw, 22px);
+  font-weight  : 800;
+  color        : var(--c-blue);
+  line-height  : 1;
+  letter-spacing: -0.4px;
+}
+
+.faq-stat__lbl {
+  font-size  : 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color      : var(--c-muted);
+  white-space: nowrap;
+}
+
+/* ── RIGHT: accordion list ──────────────────────────────────── */
+.faq-list {
+  flex    : 1 1 0;
+  min-width: 0;
+}
+
+/* ── Individual FAQ item ────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid var(--c-border);
+  /* Entrance hidden state — GSAP reveals each item on scroll */
+  opacity  : 0;
+  transform: translateY(24px);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--c-border);
+}
+
+/* ── Question button ────────────────────────────────────────── */
+.faq-q {
+  width           : 100%;
+  background      : none;
+  border          : none;
+  padding         : clamp(14px, 2vw, 22px) 0;
+  display         : flex;
+  align-items     : center;
+  justify-content : space-between;
+  gap             : 20px;
+  cursor          : pointer;
+  text-align      : left;
+  font-family     : var(--f);
+  font-size       : clamp(15px, 1.4vw, 17px);
+  font-weight     : 700;
+  color           : var(--c-text);
+  line-height     : 1.3;
+  transition      : color 0.2s ease;
+}
+
+.faq-q:hover { color: var(--c-blue); }
+
+.faq-q[aria-expanded="true"] { color: var(--c-blue); }
+
+/* Plus / minus icon */
+.faq-q__icon {
+  flex-shrink : 0;
+  width       : 24px;
+  height      : 24px;
+  border-radius: 50%;
+  border      : 1.5px solid var(--c-border);
+  background  : var(--c-bg-soft);
+  position    : relative;
+  transition  : background 0.2s ease, border-color 0.2s ease,
+                transform 0.35s var(--ease);
+}
+
+/* Horizontal bar */
+.faq-q__icon::before,
+.faq-q__icon::after {
+  content  : '';
+  position : absolute;
+  top  : 50%; left: 50%;
+  background: var(--c-muted);
+  border-radius: 2px;
+  transition: background 0.2s ease, transform 0.35s var(--ease), opacity 0.2s ease;
+}
+
+/* Horizontal */
+.faq-q__icon::before {
+  width: 10px; height: 1.5px;
+  transform: translate(-50%, -50%);
+}
+
+/* Vertical — hidden when open */
+.faq-q__icon::after {
+  width: 1.5px; height: 10px;
+  transform: translate(-50%, -50%);
+}
+
+.faq-q[aria-expanded="true"] .faq-q__icon {
+  background  : var(--c-blue-50);
+  border-color: var(--c-blue-200);
+  transform   : rotate(45deg);
+}
+
+.faq-q[aria-expanded="true"] .faq-q__icon::before,
+.faq-q[aria-expanded="true"] .faq-q__icon::after {
+  background: var(--c-blue);
+}
+
+/* ── Answer panel ───────────────────────────────────────────── */
+/*
+  height animation via JS (max-height transition for smoothness).
+  [hidden] collapses instantly — JS removes it and transitions in.
+*/
+.faq-a {
+  overflow   : hidden;
+  max-height : 0;
+  transition : max-height 0.38s cubic-bezier(.4,0,.2,1);
+}
+
+.faq-a.is-open {
+  /* JS sets inline max-height to scrollHeight */
+}
+
+.faq-a__inner {
+  padding-bottom: clamp(16px, 2vw, 24px);
+  padding-right : 44px;        /* align with gap before icon */
+  font-size     : clamp(14px, 1.15vw, 15.5px);
+  color         : var(--c-muted);
+  line-height   : 1.75;
+}
+
+/* ── Mobile: stack vertically ───────────────────────────────── */
+@media (max-width: 991px) {
+  .faq-body {
+    flex-direction: column;
+    gap           : 32px;
+  }
+
+  .faq-list{
+    width: 100%;
+  }
+
+  /* Visual full-width, not sticky on mobile */
+  .faq-visual {
+    flex      : none;
+    width     : 100%;
+    max-width : 400px;
+    margin    : 0 auto;
+    position  : static;    /* cancel sticky */
+    /* Entrance state reset for mobile (GSAP guard handles this too) */
+    opacity   : 1;
+    transform : none;
+  }
+
+  .faq-visual__card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .faq-a__inner {
+    padding-right: 0;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .faq-visual,
+  .faq-item {
+    opacity  : 1 !important;
+    transform: none !important;
+  }
+  .faq-a {
+    transition: none;
+  }
+}
+
+
+/* =================================================================
+   SITE FOOTER  —  .pep-footer / .ft-*
+   ─────────────────────────────────────────────────────────────────
+   Colour palette: strictly existing :root tokens only.
+     Background  : var(--c-text)      #0f172a  — site's own dark slate
+     Accent ring : var(--c-blue)      #2563eb  — site's primary blue
+     Accent tint : var(--c-blue-50)   #eff6ff
+     Accent ring : var(--c-blue-100)  #dbeafe
+     Accent ring : var(--c-blue-200)  #bfdbfe
+     Text primary: #ffffff            pure white on dark bg
+     Text muted  : var(--c-light)     #94a3b8  — site's lightest text
+     Text sub    : var(--c-muted)     #64748b  — site's muted text
+     Border      : rgba of --c-blue-200 at 0.15 — blue-tinted hairlines
+   Typography   : var(--f)  Montserrat — unchanged
+   Spacing      : var(--px) / var(--py) — unchanged
+   No new libraries. No animations beyond existing transitions.
+================================================================= */
+
+/* ── Section shell ──────────────────────────────────────────── */
+.pep-footer {
+  position   : relative;
+  overflow   : hidden;
+  /* --c-text (#0f172a) as base; subtle blue gradient toward the accent */
+  background : var(--c-text);   /* #0f172a — site's own dark slate, no new colours */
+  font-family: var(--f);
+  padding    : clamp(44px, 5.5vw, 72px) 0 0;
+}
+
+/* Top hairline — identical blue gradient rule used on every other section */
+.pep-footer::before {
+  content   : '';
+  position  : absolute;
+  top: 0; left: 0; right: 0;
+  height    : 3px;
+  background: linear-gradient(90deg, transparent, var(--c-blue), transparent);
+  opacity   : .45;    /* stronger than body sections because bg is dark */
+  pointer-events: none;
+  z-index   : 2;
+}
+
+/* ── Decorative arc rings — recoloured to --c-blue family ───── */
+.ft-arc {
+  position      : absolute;
+  border-radius : 50%;
+  pointer-events: none;
+}
+
+.ft-arc--1 {
+  width     : clamp(480px, 60vw, 820px);
+  height    : clamp(480px, 60vw, 820px);
+  right     : -18%;
+  top       : 50%;
+  transform : translateY(-50%);
+  border    : 1px solid rgba(37, 99, 235, .14);   /* var(--c-blue) @ 14% */
+  box-shadow: 0 0 0 clamp(50px, 6vw, 90px) rgba(37, 99, 235, .04);
+}
+
+.ft-arc--2 {
+  width       : clamp(300px, 36vw, 520px);
+  height      : clamp(300px, 36vw, 520px);
+  right       : -8%;
+  top         : 50%;
+  transform   : translateY(-50%);
+  border      : 1px solid rgba(37, 99, 235, .08);  /* var(--c-blue) @ 8% */
+}
+
+/* ── Container inner ────────────────────────────────────────── */
+.ft-inner {
+  position: relative;
+  z-index : 1;
+}
+
+/* ── Main column grid ───────────────────────────────────────── */
+.ft-grid {
+  padding-bottom: clamp(30px, 4vw, 52px);
+}
+
+/* ── COLUMN 1: Brand ────────────────────────────────────────── */
+.ft-brand {
+  display       : flex;
+  flex-direction: column;
+  gap           : 20px;
+}
+
+/* Logo word — white on dark, same weight as nav .logo-wordmark */
+.ft-logo {
+  display    : inline-flex;
+  align-items: center;
+  gap        : 9px;
+  text-decoration: none;
+}
+
+.ft-logo__word {
+  font-size     : clamp(20px, 2.2vw, 26px);
+  font-weight   : 800;
+  letter-spacing: -.5px;
+
+  color         : var(--c-bg);   /* #ffffff — site's white token */
+  line-height   : 1;
+}
+
+/* Badge — reuses the exact same blue token set as nav .logo-badge */
+.ft-logo__badge {
+  font-size     : 9px;
+  font-weight   : 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color         : var(--c-blue);        /* #2563eb */
+  background    : var(--c-blue-50);     /* #eff6ff */
+  border        : 1px solid var(--c-blue-200);  /* #bfdbfe */
+  padding       : 3px 8px;
+  border-radius : var(--r-full);
+  line-height   : 1;
+}
+
+/* Description — uses site's --c-light (#94a3b8) which is readable on dark */
+.ft-desc {
+  font-size  : 14px;
+  font-weight: 400;
+  line-height: 1.72;
+  color      : var(--c-light);   /* #94a3b8 */
+  max-width  : 340px;
+  margin     : 0;
+}
+
+/* ── Social icon row ────────────────────────────────────────── */
+.ft-social {
+  display  : flex;
+  gap      : 10px;
+  flex-wrap: wrap;
+}
+
+/* Circle button: blue-tinted ring to match the site's blue accent */
+.ft-social__btn {
+  display        : inline-flex;
+  align-items    : center;
+  justify-content: center;
+  width          : 40px;
+  height         : 40px;
+  border-radius  : 50%;
+  background     : rgba(37, 99, 235, .10);    /* --c-blue at 10% */
+  border         : 1px solid rgba(37, 99, 235, .25);  /* --c-blue at 25% */
+  color          : var(--c-light);             /* #94a3b8 */
+  text-decoration: none;
+  transition     : background .22s ease, border-color .22s ease, color .22s ease, transform .22s ease;
+  flex-shrink    : 0;
+}
+
+.ft-social__btn:hover {
+  background  : var(--c-blue);
+  border-color: var(--c-blue);
+  color       : var(--c-bg);   /* #ffffff — site's white token */
+  transform   : translateY(-2px);
+}
+
+/* ── COLUMNS 2–4: heading + list ────────────────────────────── */
+/* Column heading — white, same weight as site's bold labels */
+.ft-col__head {
+  font-family   : var(--f);
+  font-size     : 14px;
+  font-weight   : 700;
+  letter-spacing: .3px;
+  color         : var(--c-bg);   /* #ffffff — site's white token */
+  margin        : 0 0 14px;
+  line-height   : 1;
+}
+
+.ft-col__list {
+  list-style    : none;
+  margin        : 0;
+  padding       : 0;
+  display       : flex;
+  flex-direction: column;
+  gap           : 13px;
+}
+
+/* Links — --c-muted (#64748b) on dark reads cleanly, lifts to --c-light on hover */
+.ft-col__link {
+  font-size      : 13.5px;
+  font-weight    : 400;
+  line-height    : 1.4;
+  color          : var(--c-muted);     /* #64748b */
+  text-decoration: none;
+  transition     : color .18s ease;
+  cursor         : pointer;
+}
+
+a.ft-col__link:hover {
+  color: var(--c-light);               /* #94a3b8 — step up in brightness */
+}
+
+/* ── COLUMN 3: Contact rows ─────────────────────────────────── */
+.ft-contact {
+  gap: 16px;
+}
+
+.ft-contact__row {
+  display    : flex;
+  align-items: flex-start;
+  gap        : 10px;
+}
+
+.ft-contact__icon {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  flex-shrink    : 0;
+  width          : 20px;
+  margin-top     : 1px;
+  color          : var(--c-blue-lt);   /* #3b82f6 — blue icon, matches site accent */
+}
+
+/* ── Bottom bar: divider + copyright ────────────────────────── */
+.ft-bottom {
+  /* Blue-tinted top hairline — consistent with top rule and site's border style */
+  border-top  : 1px solid rgba(37, 99, 235, .18);
+  padding     : 22px 0;
+  text-align  : center;
+  /* Very slight darkening matches the reference band separation */
+  background  : rgba(0, 0, 0, .15);
+  margin      : 0 calc(var(--px) * -1);
+  padding-left : var(--px);
+  padding-right: var(--px);
+}
+
+.ft-copy {
+  font-size  : 13px;
+  font-weight: 400;
+  color      : var(--c-muted);         /* #64748b — same as body muted text */
+  margin     : 0;
+  line-height: 1;
+}
+
+/* "Peptivo" bold — steps up to --c-light for gentle emphasis */
+.ft-copy strong {
+  font-weight: 700;
+  color      : var(--c-light);         /* #94a3b8 */
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .ft-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .ft-grid > [class*="col-6"] {
+    flex     : 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ft-social__btn,
+  .ft-col__link {
+    transition: none;
+  }
+}
+
+
+
+
+
+
+/* ══════════════════════════════════════════════════
+   DNA BG CANVAS
+   • Sits at z-index 0, behind all content (z-index 1)
+   • pointer-events:none — zero interaction impact
+   • overflow:hidden on section clips the canvas edges
+   • Works on both --c-bg-soft and white backgrounds
+   • display:none when prefers-reduced-motion is set
+══════════════════════════════════════════════════ */
+.pep-science {
+  position: relative;
+  overflow: hidden;
+}
+
+.pep-science > .container,
+.pep-science > .container-xl {
+  position: relative;
+  z-index: 1;
+}
+
+.dna-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dna-bg { display: none; }
+}
+
+
+
+.pep-switch__wm.top_20{
+  top: 20%;
+  opacity: .30;
+  z-index: 4;
+}
+
+.pep-switch__wm.top_30{
+  top: 30%;
+  opacity: .40;
+  z-index: 4;
+}
+
+.pep-switch__wm.top_50.rotate90{
+    top: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    /* right: 17%; */
+    left: 90%;
+    z-index: 4;
+}
+
+.pep-switch__wm.bottom_20.left_10{
+    top: initial;
+    transform: translateX(-50%) rotate(270deg);
+    /* right: 17%; */
+    left: 10%;
+    bottom:30%;
+    z-index: 4;
+}
+
+
+
+
+
+
+
+/* ══════════════════════════════════════════════════════════════
+   BENEFITS SECTION — ATOM ORBITAL ANIMATION
+   .bnf-atom / .bnf-atom__*
+   ──────────────────────────────────────────────────────────────
+   An SVG atomic-orbit illustration centered behind the product
+   bottle. Purely decorative (aria-hidden="true").
+
+   Z-INDEX LAYERING inside .bnf-bottle (position:relative):
+     z-index 0  →  .bnf-atom         ← this layer (bottom)
+     z-index 0  →  .bnf-bottle__ring ← existing concentric rings
+     z-index 1  →  .bnf-bottle__img  ← product bottle (top)
+
+   Colors: strictly site palette tokens
+     Orbit strokes : #2563eb (--c-blue) @ opacity .16
+     Electrons     : #2563eb            @ opacity .55
+     Nucleus rings : #2563eb            @ opacity .12 / .08
+     Particles     : #3b82f6 (--c-blue-lt) @ opacity .40
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Container ──────────────────────────────────────────────── */
+.bnf-atom {
+  position     : absolute;
+  top          : 50%;
+  left         : 50%;
+  transform    : translate(-50%, -50%);
+  /* Slightly larger than the bottle — fills the surrounding space */
+  width        : clamp(340px, 58vw, 640px);
+  height       : clamp(340px, 58vw, 640px);
+  pointer-events: none;
+  user-select  : none;
+  z-index      : 0;          /* below __ring (z:0) and __img (z:1) */
+  overflow     : visible;    /* electrons can travel beyond viewBox edge */
+}
+
+/* ── Orbit ellipse rings — thin, very low opacity ──────────── */
+.bnf-atom__ring {
+  fill            : none;
+  stroke          : #2563eb;
+  stroke-width    : 0.9;
+  opacity         : 0.18;
+  vector-effect   : non-scaling-stroke;
+}
+
+/* ── Electron dots — moving along each orbit ───────────────── */
+.bnf-atom__electron {
+  fill    : #2563eb;
+  opacity : 0.55;
+}
+
+/* ── Nucleus glow circles — faint concentric rings at center ── */
+.bnf-atom__nucleus-ring {
+  fill         : none;
+  stroke       : #2563eb;
+  stroke-width : 0.8;
+  opacity      : 0.12;
+}
+
+.bnf-atom__nucleus-ring--inner {
+  opacity : 0.08;
+}
+
+/* ── Micro-particles — tiny floating dots ──────────────────── */
+.bnf-atom__particle {
+  fill    : #3b82f6;
+  opacity : 0.38;
+}
+
+/* ── Reduced motion: freeze all animation ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .bnf-atom { display: none; }
+}
+
+/* ── Mobile: scale down slightly on small screens ─────────── */
+@media (max-width: 575px) {
+  .bnf-atom {
+    width : 240px;
+    height: 240px;
+  }
+}
+
+
+
+/* ══════════════════════════════════════════════════════════
+   MORTAR & PESTLE BACKGROUND — single large centered scene
+   ──────────────────────────────────────────────────────────
+   One SVG centered horizontally, anchored to the section
+   bottom so the bowl base sits at the section floor and
+   the illustration peeks up behind the orbit stage.
+
+   .sph-bg   — absolute fill wrapper, clips overflow
+   .sph-svg  — the single SVG, center-bottom position
+
+   GSAP reveals from opacity:0 on ScrollTrigger, then loops
+   with pestle grind + sparkle bursts + dust particles.
+══════════════════════════════════════════════════════════ */
+.sph-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sph-svg {
+  position: absolute;
+  width: 350px;          /* large on desktop */
+  height: auto;
+  left: 50%;
+  bottom: -20px;         /* bowl base flush with section floor */
+  transform: translateX(-50%);
+  opacity: 0;            /* GSAP reveals on scroll */
+  will-change: transform, opacity;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .sph-svg { width: 380px; }
+}
+
+@media (max-width: 768px) {
+  .sph-svg { width: 280px; }
+}
+
+/* Mobile: hide to keep layout clean */
+@media (max-width: 540px) {
+  .sph-bg { display: none; }
+}
+
+/* Reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .sph-bg { display: none; }
+}
+
+
+
+
+
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ≤ 767px - PROPORTIONAL ARC SCALING
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Scale the arc container height down */
+  .peptivo-doctors-section .pds-arc {
+    height: clamp(140px, 40vw, 220px);
+    overflow: visible;
+    margin-bottom: 16px;
+  }
+
+  /* Shrink cards to fit 5 across */
+  .peptivo-doctors-section .pds-card {
+    --pds-w: clamp(55px, 15vw, 90px);
+    --pds-lift: clamp(10px, 4vw, 20px);
+    border-radius: 10px;
+  }
+
+  /* Adjust text to fit inside smaller mobile cards */
+  .peptivo-doctors-section .pds-card .doctor-name {
+    font-size: clamp(9px, 2.5vw, 12px);
+    padding: 4px 2px;
+  }
+
+  /* Fix the minimum clamp boundaries so they don't force width on mobile */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(1) {
+    left: calc(50% - clamp(100px, 32vw, 220px));
+  }
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(2) {
+    left: calc(50% - clamp(50px, 16vw, 110px));
+  }
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(3) {
+    left: 50%;
+    --pds-lift: clamp(20px, 6vw, 50px);
+  }
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(4) {
+    left: calc(50% + clamp(50px, 16vw, 110px));
+  }
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(5) {
+    left: calc(50% + clamp(100px, 32vw, 220px));
+  }
+
+  /* Stage sits below the grid, full width */
+  .pds-stage__inner {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+  
+  .pds-stage__img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ≤ 639px - 3/2 STAGGERED ARC LAYOUT & EXACT ROTATIONS
+   ─────────────────────────────────────────────────────────────
+   Fixes top overlap and applies exact custom card rotations.
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 639px) {
+  /* Fix overlap with text above by pushing the container down */
+  .peptivo-doctors-section .pds-arc {
+    height: 330px;
+    margin-top: 40px; /* Pushes the cards down away from the hero text */
+    margin-bottom: 20px;
+  }
+
+  /* Make cards larger so they are clearly legible */
+  .peptivo-doctors-section .pds-card {
+    --pds-w: clamp(85px, 28vw, 110px);
+    --pds-lift: 0px; 
+  }
+
+  /* ─── TOP ROW: 3 DOCTORS ─── */
+  
+  /* Card 1: Top Left (Left Rotation) */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(1) {
+    left: 10%;
+    bottom: 160px; 
+    transform: rotate(-12deg) !important;
+  }
+  /* Card 2: Top Center (Straight - No Rotation) */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(2) {
+    left: 40%;
+    bottom: 180px; 
+    transform: rotate(0deg) !important;
+  }
+  /* Card 3: Top Right (Right Rotation) */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(3) {
+    left: 70%;
+    bottom: 160px;
+    transform: rotate(12deg) !important;
+  }
+
+  /* ─── BOTTOM ROW: 2 DOCTORS ─── */
+  
+  /* Card 4: Bottom Left (Left Rotation) */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(4) {
+    left: 25%;
+    bottom: 20px;
+    transform: rotate(-12deg) !important;
+  }
+  /* Card 5: Bottom Right (Right Rotation) */
+  .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(5) {
+    right: 25%;
+    left: initial;
+    bottom: 20px;
+    transform: rotate(12deg) !important;
+  }
+
+  /* Ensure the active/clicked card sits perfectly straight and slightly larger */
+  .peptivo-doctors-section .pds-arc__track .pds-card.active {
+    z-index: 20 !important;
+  }
+  
+  /* Optimize text for the new card size */
+  .peptivo-doctors-section .pds-card .doctor-name {
+    font-size: clamp(10px, 3.5vw, 13px);
+    padding: 6px 4px;
+  }
+
+  /* ─── Center Stage Balancing ─── */
+  .peptivo-doctors-section .pds-stage {
+    margin-top: 10px;
+  }
+  .peptivo-doctors-section .pds-stage__inner {
+    padding: 0 16px;
+  }
+  .peptivo-doctors-section .pds-stage__name {
+    font-size: 20px; 
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ≤ 639px - 3/2 STAGGERED ARC LAYOUT & EXACT ROTATIONS
+   ─────────────────────────────────────────────────────────────
+   Fixes top overlap and applies exact custom card rotations.
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+    .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(3) {
+      left: initial;
+      right: 5%;
+    }
+
+      .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(4),
+      .peptivo-doctors-section .pds-arc__track .pds-card:nth-child(5) { 
+        bottom: 5px;
+      }
+}

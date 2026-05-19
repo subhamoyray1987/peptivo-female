@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peptivo — GLP-1 Weight Loss, Medically Supervised</title>
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Animate.css — used for scroll reveals via IntersectionObserver -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/responsive.css" />
+
+</head>
+
+<body>
+
+  <!-- Custom cursor — hidden on touch, JS drives position -->
+  <div class="pep-cursor" id="pepCursor" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+         HEADER
+    ═══════════════════════════════════════════ -->
+  <header class="pep-header" id="header">
+    <nav class="pep-nav container-xl">
+
+      <a href="#" class="pep-logo" aria-label="Peptivo Home">
+        <img src="images/logo.webp" alt="" srcset="">
+      </a>
+
+      <ul class="pep-nav__links" role="list">
+        <li><a href="#science" class="pep-nav__link">Science</a></li>
+        <li><a href="#how-it-works" class="pep-nav__link">How It Works</a></li>
+        <li><a href="#products" class="pep-nav__link">Products</a></li>
+        <li><a href="#doctors" class="pep-nav__link">Doctors</a></li>
+      </ul>
+
+      <div class="pep-nav__right">
+
+        <a href="#" class="pep-btn pep-btn--primary js-magnetic js-btn-arrow"
+          style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+          <span class="btn-label">Get It Now</span>
+          <span class="btn-arrow" aria-hidden="true">
+
+            <svg class="btn-arrow__svg" viewBox="-3 -3 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; filter: drop-shadow(rgba(255, 255, 255, 0) 0px 0px 0px); opacity: 0.75; transform: translate(0px, 0px);">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg></span>
+        </a>
+
+
+        <button class="pep-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile nav drawer — slides in from left -->
+    <!-- Overlay: darkens page content behind the open drawer -->
+    <div class="pep-drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+
+    <div class="pep-drawer" id="drawer" aria-hidden="true">
+      <!-- Close button inside drawer -->
+      <button class="pep-drawer__close" id="drawerClose" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <!-- Brand mark at top of drawer -->
+      <div class="pep-drawer__brand">
+        <span class="logo-wordmark" style="font-size:20px;letter-spacing:-0.5px;">
+          <img src="images/logo.webp" alt="" srcset="" style="max-width: 120px;">
+        </span>
+      </div>
+
+      <ul role="list">
+        <li><a href="#science">Science</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#doctors">Doctors</a></li>
+        <li>
+          <a href="#" class="pep-btn pep-btn--primary d-block text-center mt-3">Get It Now</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════ -->
+  <section class="pep-hero" id="hero" aria-label="Hero">
+
+    <!-- ── Background video (fullscreen, behind everything) ── -->
+    <div class="hero-video-wrap" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="none" poster="hero-poster.jpg">
+        <!-- Replace src with your generated video file -->
+        <source src="./video/video-v3.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video__overlay"></div>
+    </div>
+
+    <div class="hero-accent hero-accent--1" aria-hidden="true"></div>
+    <div class="hero-accent hero-accent--2" aria-hidden="true"></div>
+    <div class="hero-dots-grid" aria-hidden="true"></div>
+
+    <div class="container-xl pep-hero__inner">
+
+      <!-- Left: text -->
+      <div class="pep-hero__content">
+
+        <div class="pep-label hero-anim" style="--d:0s">
+          <span class="pep-label__dot"></span>
+          <span>&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4.8 &nbsp;&middot;&nbsp; 100,000+ Patients</span>
+        </div>
+
+        <h1 class="hero-headline hero-anim" style="--d:.1s">
+          <span id="tw-text" aria-label="Ready to get serious about weight loss?"></span><span class="tw-cursor"
+            aria-hidden="true">|</span>
+        </h1>
+
+        <p class="hero-sub hero-anim" style="--d:.2s">
+          Fat loss made easy with personalized care and clinician-prescribed
+          <strong>GLP-1 medications</strong>. Starting at
+          <strong class="price-accent">$147</strong> &mdash; shipped overnight.
+        </p>
+
+        <ul class="hero-bullets hero-anim" style="--d:.28s" role="list">
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="10" r="9" fill="#eff6ff" />
+              <path d="M6 10.5l3 3 5-5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            100% online. Injections &amp; oral options available.
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="10" r="9" fill="#eff6ff" />
+              <path d="M6 10.5l3 3 5-5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Prescription &amp; telemed included. No insurance required.
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="10" r="9" fill="#eff6ff" />
+              <path d="M6 10.5l3 3 5-5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Same price every dose. Zero hidden fees. Free shipping.
+          </li>
+        </ul>
+
+        <div class="hero-cta-row hero-anim" style="--d:.36s">
+          <a href="#" class="pep-btn pep-btn--primary pep-btn--lg js-magnetic js-btn-arrow">
+            <span class="btn-label">Get It Now</span>
+            <span class="btn-arrow" aria-hidden="true">
+              <svg class="btn-arrow__svg" viewBox="-3 -3 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+          <a href="#" class="hero-play" aria-label="Watch highlight video">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span>Watch Highlight</span>
+          </a>
+        </div>
+
+      </div><!-- /.pep-hero__content -->
+
+      <!-- Right: visual card -->
+      <div class="pep-hero__visual hero-anim hero-anim--right" style="--d:.15s">
+
+        <div class="hero-card" id="heroCard">
+          <div class="hero-card__glow" aria-hidden="true"></div>
+
+          <div class="hero-card__product">
+            <img src="images/hero_product_1.png" alt="" srcset="">
+
+            <img src="images/hero_product_2.png" alt="" srcset="">
+          </div>
+
+          <div class="hero-badge hero-badge--tl">
+            <span class="badge-icon">&#128300;</span>
+            <div class="badge-text">
+              <div class="badge-val">GLP-1</div>
+              <div class="badge-sub">Clinician Prescribed</div>
+            </div>
+          </div>
+
+          <div class="hero-badge hero-badge--br">
+            <span class="badge-icon">&#128666;</span>
+            <div class="badge-text">
+              <div class="badge-val">1&ndash;2 Days</div>
+              <div class="badge-sub">Free Delivery</div>
+            </div>
+          </div>
+
+        </div><!-- /.hero-card -->
+
+        <div class="hero-trust">
+          <div class="hero-trust__pill"><strong>100k+</strong><span>Patients</span></div>
+          <div class="hero-trust__sep"></div>
+          <div class="hero-trust__pill"><strong>$147</strong><span>Starting at</span></div>
+          <div class="hero-trust__sep"></div>
+          <div class="hero-trust__pill"><strong>98%</strong><span>Satisfaction</span></div>
+        </div>
+
+      </div><!-- /.pep-hero__visual -->
+    </div><!-- /.pep-hero__inner -->
+
+    <div class="scroll-cue" aria-hidden="true">
+      <div class="scroll-cue__bar"></div>
+      <span>Scroll</span>
+    </div>
+
+  </section><!-- /#hero -->
+
+
+  <!-- ═══════════════════════════════════════════
+             RESULTS — Before/After Slider + LBS Calculator
+    ═══════════════════════════════════════════ -->
+  <section class="pep-results" id="results" aria-label="Results">
+    <div class="container-xl pep-results__inner">
+
+      <!-- Section header -->
+      <div class="section-header results-header reveal-up">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>Real Patients. Real Results.</span>
+        </div>
+        <h2 class="section-title">
+          See the <em>Difference</em> GLP-1 Makes
+        </h2>
+        <p class="section-sub">
+          Clinically supervised weight loss that delivers visible, measurable change —
+          drag the slider and calculate your potential.
+        </p>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="results-cols">
+
+        <!-- ── LEFT: Before / After Slider ────────────────── -->
+        <div class="results-col results-col--slider" id="resultsSlider">
+
+          <div class="ba-card">
+            <div class="ba-card__header">
+              <span class="ba-card__label-pill">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <circle cx="6" cy="6" r="5" stroke="#2563eb" stroke-width="1.5" />
+                  <path d="M4 6l1.5 1.5L8 4" stroke="#2563eb" stroke-width="1.3" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                Verified Patient Result
+              </span>
+            </div>
+
+            <!-- Slider viewport -->
+            <div class="ba-slider" id="baSlider" role="img" aria-label="Before and after comparison slider">
+
+              <!-- AFTER image (bottom layer, full width) -->
+              <div class="ba-slider__after">
+                <img src="images/ba-slider-after.webp" alt="After GLP-1 treatment" draggable="false" />
+                <span class="ba-tag ba-tag--after">AFTER</span>
+              </div>
+
+              <!-- BEFORE image (top layer, clipped by JS) -->
+              <div class="ba-slider__before" id="baSliderBefore">
+                <img src="images/ba-slider-before.webp" alt="Before GLP-1 treatment" draggable="false" />
+                <span class="ba-tag ba-tag--before">BEFORE</span>
+              </div>
+
+              <!-- Drag handle -->
+              <div class="ba-handle" id="baHandle" role="slider" aria-label="Drag to compare before and after"
+                aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+                <div class="ba-handle__line"></div>
+                <div class="ba-handle__circle">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                    <path d="M6 9H12M6 9L4 7M6 9L4 11M12 9L14 7M12 9L14 11" stroke="white" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+
+            </div><!-- /.ba-slider -->
+
+            <div class="ba-card__footer">
+              <div class="ba-stat">
+                <strong>−42 lbs</strong>
+                <span>in 4 months</span>
+              </div>
+              <div class="ba-stat__sep"></div>
+              <div class="ba-stat">
+                <strong>GLP-1</strong>
+                <span>Medically supervised</span>
+              </div>
+              <div class="ba-stat__sep"></div>
+              <div class="ba-stat">
+                <strong>98%</strong>
+                <span>satisfaction rate</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.results-col--slider -->
+
+        <!-- ── RIGHT: LBS Calculator ───────────────────────── -->
+        <div class="results-col results-col--calc" id="resultsCalc">
+
+          <div class="calc-card">
+            <div class="calc-card__header">
+              <span class="ba-card__label-pill">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <circle cx="6" cy="6" r="5" stroke="#2563eb" stroke-width="1.5" />
+                  <path d="M6 3v3l2 1" stroke="#2563eb" stroke-width="1.3" stroke-linecap="round" />
+                </svg>
+                Weight Loss Estimator
+              </span>
+            </div>
+
+            <h3 class="calc-card__title">
+              Curious what healthy, realistic progress could look like?
+            </h3>
+
+            <!-- Weight input -->
+            <div class="calc-field">
+              <label class="calc-label" for="calcWeight">Starting weight</label>
+              <div class="calc-input-row">
+                <input class="calc-input" id="calcWeight" type="number" min="100" max="500" value="200"
+                  placeholder="200" aria-label="Enter your starting weight in pounds" />
+                <span class="calc-unit">lbs</span>
+              </div>
+              <!-- Range slider -->
+              <input class="calc-range" id="calcRange" type="range" min="100" max="500" value="200"
+                aria-label="Adjust starting weight" />
+              <div class="calc-range-labels">
+                <span>100 lbs</span>
+                <span>500 lbs</span>
+              </div>
+            </div>
+
+            <!-- Duration toggle -->
+            <div class="calc-field">
+              <label class="calc-label">Treatment duration</label>
+              <div class="calc-duration-tabs" role="group" aria-label="Treatment duration">
+                <button class="calc-tab active" data-months="3" type="button">3 mo</button>
+                <button class="calc-tab" data-months="6" type="button">6 mo</button>
+                <button class="calc-tab" data-months="12" type="button">12 mo</button>
+              </div>
+            </div>
+
+            <!-- Result display -->
+            <div class="calc-result" id="calcResult" aria-live="polite">
+              <div class="calc-result__row">
+                <div class="calc-result__block">
+                  <span class="calc-result__label">Estimated loss</span>
+                  <strong class="calc-result__val" id="calcLbs">40 lbs</strong>
+                </div>
+                <div class="calc-result__divider" aria-hidden="true"></div>
+                <div class="calc-result__block">
+                  <span class="calc-result__label">Target weight</span>
+                  <strong class="calc-result__val calc-result__val--blue" id="calcTarget">160 lbs</strong>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="calc-progress" aria-hidden="true">
+                <div class="calc-progress__track">
+                  <div class="calc-progress__fill" id="calcBar"></div>
+                </div>
+                <div class="calc-progress__labels">
+                  <span>Start</span>
+                  <span id="calcPct">20%</span>
+                  <span>Goal</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="calc-disclaimer">
+              Estimates based on average GLP-1 clinical outcomes. Individual results vary.
+              Medically supervised programs only.
+            </p>
+
+            <a href="#" class="pep-btn pep-btn--primary pep-btn--lg js-magnetic w-100 d-block text-center">
+              See If You Qualify
+            </a>
+
+          </div><!-- /.calc-card -->
+
+        </div><!-- /.results-col--calc -->
+
+      </div><!-- /.results-cols -->
+    </div><!-- /.container-xl -->
+  </section><!-- /#results -->
+
+
+  <!-- ═══════════════════════════════════════════
+         SCIENCE
+    ═══════════════════════════════════════════ -->
+  <section class="pep-science" id="science" aria-label="Science behind Peptivo">
+
+    <span class="pep-switch__wm top_20" aria-hidden="true">Peptivo</span>
+
+    <canvas class="dna-bg" id="dnaBgCanvas" aria-hidden="true"></canvas>
+
+    <div class="container-xl">
+      <div class="section-header">
+        <div class="pep-label reveal-up">
+          <span class="pep-label__dot"></span>
+          <span>Globally Recognized</span>
+        </div>
+        <h2 class="section-title reveal-up" style="--rd:80ms">
+          Science-Driven <em>Weight Loss</em>
+        </h2>
+        <p class="section-sub reveal-up" style="--rd:160ms">
+          Our physician-guided programs combine advanced GLP-1 therapies with
+          personalized care plans to deliver measurable, sustainable outcomes.
+        </p>
+      </div>
+
+      <div class="stats-bar reveal-up row" style="--rd:0ms">
+
+        <div class="stats-bar__item col-sm-6 col-md-3" data-count="30">
+          <div class="stats-bar__val"><span class="count-val">0</span><span class="stats-bar__unit">%</span></div>
+          <p class="stats-bar__label">Average body fat reduction under medical supervision</p>
+        </div>
+
+        <div class="stats-bar__item col-sm-6 col-md-3" data-count="8">
+          <div class="stats-bar__val"><span class="count-val">0</span><span class="stats-bar__unit">/10</span></div>
+          <p class="stats-bar__label">Patients see waistline reduction in first phase</p>
+        </div>
+
+        <div class="stats-bar__item col-sm-6 col-md-3" data-count="6">
+          <div class="stats-bar__val"><span class="count-val">0</span><span class="stats-bar__unit">"</span></div>
+          <p class="stats-bar__label">Average waist reduction in the first 90 days</p>
+        </div>
+
+        <div class="stats-bar__item col-sm-6 col-md-3" data-count="98">
+          <div class="stats-bar__val"><span class="count-val">0</span><span class="stats-bar__unit">%</span></div>
+          <p class="stats-bar__label">Patient satisfaction rating across all programs</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+           MARQUEE — Continuous trust-signal strip
+           Pure CSS transform animation.
+           Duplicate track technique for infinite loop.
+           No JS. No layout recalculation. GPU composited.
+      ═══════════════════════════════════════════ -->
+  <div class="pep-marquee" aria-hidden="true">
+    <div class="pep-marquee__track">
+      <!-- Item set — duplicated immediately below for seamless loop -->
+      <div class="pep-marquee__set">
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>100,000+ Patients</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Board-Certified Physicians</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>98% Satisfaction Rate</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Same-Day Prescriptions</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Free Overnight Shipping</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>No Insurance Required</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>GLP-1 Clinically Proven</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>USP 797 Compounded</span>
+      </div>
+      <!-- Exact duplicate — creates the seamless loop -->
+      <div class="pep-marquee__set" aria-hidden="true">
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>100,000+ Patients</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Board-Certified Physicians</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>98% Satisfaction Rate</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Same-Day Prescriptions</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>Free Overnight Shipping</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>No Insurance Required</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>GLP-1 Clinically Proven</span>
+        <span class="pep-marquee__item"><span class="pep-marquee__dot"></span>USP 797 Compounded</span>
+      </div>
+    </div>
+  </div>
+  <!-- /.pep-marquee -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SPECIFICATIONS — Product orbit layout
+  ═══════════════════════════════════════════ -->
+  <section class="pep-specs" id="specifications" aria-label="Product Specifications">
+
+    <span class="pep-switch__wm bottom_20 left_10" aria-hidden="true">Peptivo</span>
+
+    <!-- ╔══════════════════════════════════════════════════════════╗
+             ║  MORTAR & PESTLE PHARMACY ANIMATION                     ║
+             ║  Replaces .specs-particles.                             ║
+             ║  Two mirrored scenes (left + right) sit behind the      ║
+             ║  orbit stage as subtle decorative background elements.   ║
+             ║  aria-hidden, pointer-events:none, z-index:0            ║
+             ╚══════════════════════════════════════════════════════════╝ -->
+    <div class="sph-bg" aria-hidden="true">
+
+      <svg class="sph-svg" id="sphMain" viewBox="0 0 340 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- PESTLE — angled rod, bulb end top-left, tip rests in bowl -->
+        <g id="sphPestle">
+          <!-- Rod body, rotated -28deg, origin at its top-left corner -->
+          <rect x="148" y="10" width="32" height="138" rx="16" transform="rotate(-28 148 10)"
+            fill="rgba(37,99,235,0.17)" />
+          <!-- Bulb tip (upper end of pestle) -->
+          <circle cx="108" cy="55" r="18" fill="rgba(37,99,235,0.21)" />
+          <!-- Grinding tip (lower end inside bowl) -->
+          <circle cx="204" cy="140" r="12" fill="rgba(37,99,235,0.17)" />
+        </g>
+
+        <!-- BOWL — deep semicircular mortar -->
+        <g id="sphBowl">
+          <!-- Main bowl shape: wide bezier arc -->
+          <path d="M 24,132
+                       C 24,244  88,278  170,278
+                       C 252,278 316,244 316,132
+                       Z" fill="rgba(37,99,235,0.11)" stroke="rgba(37,99,235,0.24)" stroke-width="2.5" />
+
+          <!-- Medical + cross inside bowl -->
+          <!-- Horizontal bar -->
+          <rect x="124" y="192" width="92" height="24" rx="7" fill="rgba(37,99,235,0.24)" />
+          <!-- Vertical bar -->
+          <rect x="158" y="158" width="24" height="92" rx="7" fill="rgba(37,99,235,0.24)" />
+
+          <!-- Base line (wide) -->
+          <line x1="36" y1="288" x2="304" y2="288" stroke="rgba(37,99,235,0.32)" stroke-width="4.5"
+            stroke-linecap="round" />
+          <!-- Foot line (narrow) -->
+          <line x1="98" y1="305" x2="242" y2="305" stroke="rgba(37,99,235,0.22)" stroke-width="3.5"
+            stroke-linecap="round" />
+        </g>
+
+        <!-- SPARKLES — 3 × cross shapes that burst from bowl rim -->
+        <g id="sphSparkles">
+          <!-- A: medium, close right -->
+          <g id="sphSA" opacity="0" transform="translate(244,112)">
+            <line x1="-12" y1="0" x2="12" y2="0" stroke="rgba(37,99,235,0.48)" stroke-width="3.8"
+              stroke-linecap="round" />
+            <line x1="0" y1="-12" x2="0" y2="12" stroke="rgba(37,99,235,0.48)" stroke-width="3.8"
+              stroke-linecap="round" />
+          </g>
+          <!-- B: large, far right -->
+          <g id="sphSB" opacity="0" transform="translate(282,80)">
+            <line x1="-16" y1="0" x2="16" y2="0" stroke="rgba(37,99,235,0.58)" stroke-width="4.5"
+              stroke-linecap="round" />
+            <line x1="0" y1="-16" x2="0" y2="16" stroke="rgba(37,99,235,0.58)" stroke-width="4.5"
+              stroke-linecap="round" />
+          </g>
+          <!-- C: small, outermost right -->
+          <g id="sphSC" opacity="0" transform="translate(316,108)">
+            <line x1="-9" y1="0" x2="9" y2="0" stroke="rgba(37,99,235,0.36)" stroke-width="3" stroke-linecap="round" />
+            <line x1="0" y1="-9" x2="0" y2="9" stroke="rgba(37,99,235,0.36)" stroke-width="3" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <!-- DUST — small circles rising from inside bowl -->
+        <g id="sphDust">
+          <circle class="sph-dust" cx="110" cy="126" r="4.5" fill="rgba(37,99,235,0.20)" opacity="0" />
+          <circle class="sph-dust" cx="146" cy="114" r="3.5" fill="rgba(37,99,235,0.16)" opacity="0" />
+          <circle class="sph-dust" cx="182" cy="122" r="5.2" fill="rgba(37,99,235,0.22)" opacity="0" />
+          <circle class="sph-dust" cx="128" cy="100" r="3.0" fill="rgba(37,99,235,0.14)" opacity="0" />
+          <circle class="sph-dust" cx="166" cy="107" r="4.0" fill="rgba(37,99,235,0.18)" opacity="0" />
+          <circle class="sph-dust" cx="210" cy="116" r="2.8" fill="rgba(37,99,235,0.15)" opacity="0" />
+        </g>
+
+      </svg>
+
+    </div>
+
+
+    <div class="container-xl pep-specs__wrap">
+
+      <!-- Section header -->
+      <div class="section-header specs-header">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>Formulated for Results</span>
+        </div>
+        <h2 class="section-title">
+          Inside Every <em>Peptivo</em> Dose
+        </h2>
+        <p class="section-sub">
+          Every specification is engineered with precision — clinically dosed,
+          physician-approved, and built for your body.
+        </p>
+      </div>
+
+      <!-- Orbit stage -->
+      <div class="specs-stage" id="specsStage">
+
+        <!-- Product image — enters from left -->
+        <div class="specs-product" id="specsProduct" aria-hidden="true">
+          <div class="specs-product__glow"></div>
+          <img src="images/hero_product_1.png" alt="Peptivo GLP-1 medication vial" class="specs-product__img"
+            draggable="false" />
+          <!-- centre ring decoration -->
+          <div class="specs-product__ring specs-product__ring--1"></div>
+          <div class="specs-product__ring specs-product__ring--2"></div>
+        </div>
+
+        <!-- Orbit ring — GSAP rotates this; cards counter-rotate to stay upright -->
+        <div class="specs-orbit" id="specsOrbit">
+
+          <!-- Spec nodes — 8 items orbiting the product -->
+          <!-- Positions (desktop): TL, TC, TR, MR, BR, BC, BL, ML -->
+          <div class="spec-node spec-node--tl" data-spec-i="0">
+            <div class="spec-node__card">
+              <span class="spec-node__num">01</span>
+              <h4 class="spec-node__title">GLP-1 Agonist</h4>
+              <p class="spec-node__body">Compounded semaglutide, 2.4 mg/dose — the same active class as leading branded
+                treatments.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+          <div class="spec-node spec-node--tc" data-spec-i="1">
+            <div class="spec-node__card">
+              <span class="spec-node__num">02</span>
+              <h4 class="spec-node__title">Sterile Compounded</h4>
+              <p class="spec-node__body">USP 797-compliant clean-room preparation with independent third-party purity
+                testing.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+          <div class="spec-node spec-node--tr" data-spec-i="2">
+            <div class="spec-node__card">
+              <span class="spec-node__num">03</span>
+              <h4 class="spec-node__title">Dose Flexibility</h4>
+              <p class="spec-node__body">Physician-titratable from 0.25 mg to 2.4 mg — your body sets the pace, not a
+                fixed schedule.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+          <div class="spec-node spec-node--mr" data-spec-i="3">
+            <div class="spec-node__card">
+              <span class="spec-node__num">04</span>
+              <h4 class="spec-node__title">Rapid Onset</h4>
+              <p class="spec-node__body">Subcutaneous absorption reaches peak plasma levels within 24–72 hours of first
+                injection.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+          <div class="spec-node spec-node--br" data-spec-i="4">
+            <div class="spec-node__card">
+              <span class="spec-node__num">05</span>
+              <h4 class="spec-node__title">Cold-Chain Stable</h4>
+              <p class="spec-node__body">Shipped refrigerated in insulated packaging — potency is guaranteed from our
+                lab to your door.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+          <div class="spec-node spec-node--bc" data-spec-i="5">
+            <div class="spec-node__card">
+              <span class="spec-node__num">06</span>
+              <h4 class="spec-node__title">Weekly Dosing</h4>
+              <p class="spec-node__body">One subcutaneous injection per week — minimal disruption, maximum clinical
+                compliance.</p>
+            </div>
+            <div class="spec-node__dot" aria-hidden="true"></div>
+            <div class="spec-node__line" aria-hidden="true"></div>
+          </div>
+
+
+        </div><!-- /.specs-orbit -->
+
+      </div><!-- /.specs-stage -->
+
+      <!-- Bottom CTA -->
+      <div class="specs-cta reveal-up">
+        <a href="#" class="pep-btn pep-btn--primary pep-btn--lg js-magnetic js-btn-arrow">
+          <span class="btn-label">Get it now</span>
+          <span class="btn-arrow" aria-hidden="true">
+            <svg class="btn-arrow__svg" viewBox="-3 -3 22 22" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
+        <p class="specs-cta__note">No insurance required &mdash; prescription included.</p>
+      </div>
+
+    </div><!-- /.container-xl -->
+  </section><!-- /#specifications -->
+
+
+  <!-- ═══════════════════════════════════════════
+           HOW IT WORKS
+      ═══════════════════════════════════════════ -->
+  <section class="pep-hiw" id="how-it-works" aria-label="How It Works">
+
+    <span class="pep-switch__wm top_20" aria-hidden="true">Peptivo</span>
+
+    <!-- Section header: normal flow, scrolls past before pin -->
+    <div class="container-xl">
+      <div class="section-header hiw-header">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>Simple Process</span>
+        </div>
+        <h2 class="section-title">How It <em>Works</em></h2>
+        <p class="section-sub">
+          Three steps. Fully online. A licensed physician guides every
+          decision — from your first consultation to your door.
+        </p>
+      </div>
+    </div>
+
+    <!-- Static 3-step layout — replaces pinned horizontal scroll -->
+    <div class="container-xl hiw-steps-wrap">
+      <div class="row g-0 hiw-steps-row">
+
+        <!-- Step 1 -->
+        <div class="col-lg-4 col-12 hiw-card" id="hiwStep1">
+          <div class="hiw-card__inner">
+            <div class="hiw-card__visual" aria-hidden="true">
+              <div class="hiw-icon-wrap">
+                <div class="hiw-icon-ring hiw-icon-ring--1"></div>
+                <div class="hiw-icon-ring hiw-icon-ring--2"></div>
+                <svg viewBox="0 0 96 96" class="hiw-svg">
+                  <circle cx="48" cy="48" r="38" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.5" />
+                  <rect x="28" y="30" width="40" height="46" rx="5" fill="#fff" stroke="var(--c-blue)"
+                    stroke-width="1.8" />
+                  <rect x="38" y="24" width="20" height="12" rx="4" fill="var(--c-blue-100)" stroke="var(--c-blue)"
+                    stroke-width="1.5" />
+                  <rect x="43" y="24" width="10" height="5" rx="2" fill="var(--c-blue-200)" />
+                  <line x1="36" y1="48" x2="60" y2="48" stroke="var(--c-blue-200)" stroke-width="2"
+                    stroke-linecap="round" />
+                  <line x1="36" y1="56" x2="60" y2="56" stroke="var(--c-blue-200)" stroke-width="2"
+                    stroke-linecap="round" />
+                  <line x1="36" y1="64" x2="52" y2="64" stroke="var(--c-blue-200)" stroke-width="2"
+                    stroke-linecap="round" />
+                  <circle cx="62" cy="68" r="10" fill="var(--c-blue)" stroke="#fff" stroke-width="2" />
+                  <path d="M57 68 L61 72 L68 64" stroke="#fff" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" fill="none" />
+                </svg>
+                <div class="hiw-glow"></div>
+              </div>
+            </div>
+            <div class="hiw-card__text">
+              <div class="hiw-num" aria-hidden="true">01</div>
+              <div class="pep-label hiw-step__label">
+                <span class="pep-label__dot"></span>
+                <span>Consultation</span>
+              </div>
+              <h3 class="hiw-step__heading">Complete Your Online Visit</h3>
+              <p class="hiw-step__body">Answer a brief health questionnaire and connect with a licensed
+                physician — entirely online, no in-person visit required. Your doctor reviews your
+                history and designs a personalised GLP-1 protocol tailored to your goals.</p>
+              <ul class="hiw-step__list">
+                <li>5-minute intake form</li>
+                <li>Same-day physician review</li>
+                <li>No insurance or referral needed</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /step 1 -->
+
+        <!-- Step 2 -->
+        <div class="col-lg-4 col-12 hiw-card" id="hiwStep2">
+          <div class="hiw-card__inner">
+            <div class="hiw-card__visual" aria-hidden="true">
+              <div class="hiw-icon-wrap">
+                <div class="hiw-icon-ring hiw-icon-ring--1"></div>
+                <div class="hiw-icon-ring hiw-icon-ring--2"></div>
+                <svg viewBox="0 0 96 96" class="hiw-svg">
+                  <circle cx="48" cy="48" r="38" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.5" />
+                  <rect x="36" y="34" width="24" height="34" rx="6" fill="var(--c-blue-100)" stroke="var(--c-blue)"
+                    stroke-width="1.8" />
+                  <rect x="33" y="26" width="30" height="12" rx="4" fill="var(--c-blue)" />
+                  <rect x="36" y="52" width="24" height="16" fill="var(--c-blue-200)" />
+                  <rect x="36" y="50" width="24" height="4" fill="var(--c-blue-lt)" opacity="0.5" />
+                  <text x="48" y="46" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="800"
+                    fill="var(--c-blue)" font-family="Montserrat,system-ui,sans-serif">Rx</text>
+                  <path d="M72 44 C72 40 67 34 67 34 C67 34 62 40 62 44 C62 47.3 64.7 50 67 50 C69.3 50 72 47.3 72 44Z"
+                    fill="var(--c-blue)" opacity="0.7" />
+                </svg>
+                <div class="hiw-glow"></div>
+              </div>
+            </div>
+            <div class="hiw-card__text">
+              <div class="hiw-num" aria-hidden="true">02</div>
+              <div class="pep-label hiw-step__label">
+                <span class="pep-label__dot"></span>
+                <span>Prescription</span>
+              </div>
+              <h3 class="hiw-step__heading">Get Your GLP-1 Prescription</h3>
+              <p class="hiw-step__body">Once approved, your physician issues a prescription for compounded
+                semaglutide — clinically dosed, sterile-compounded, and titrated to your body weight
+                and metabolic response over time.</p>
+              <ul class="hiw-step__list">
+                <li>Same-day prescription issuance</li>
+                <li>Physician-titrated dosing schedule</li>
+                <li>Ongoing dose adjustments included</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /step 2 -->
+
+        <!-- Step 3 -->
+        <div class="col-lg-4 col-12 hiw-card" id="hiwStep3">
+          <div class="hiw-card__inner">
+            <div class="hiw-card__visual" aria-hidden="true">
+              <div class="hiw-icon-wrap">
+                <div class="hiw-icon-ring hiw-icon-ring--1"></div>
+                <div class="hiw-icon-ring hiw-icon-ring--2"></div>
+                <svg viewBox="0 0 96 96" class="hiw-svg">
+                  <circle cx="48" cy="48" r="38" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.5" />
+                  <rect x="22" y="46" width="52" height="30" rx="4" fill="var(--c-blue-100)" stroke="var(--c-blue)"
+                    stroke-width="1.8" />
+                  <rect x="20" y="38" width="56" height="12" rx="4" fill="var(--c-blue)" />
+                  <line x1="48" y1="46" x2="48" y2="76" stroke="var(--c-blue-200)" stroke-width="2" />
+                  <line x1="22" y1="61" x2="74" y2="61" stroke="var(--c-blue-200)" stroke-width="2" />
+                  <line x1="48" y1="40" x2="48" y2="48" stroke="#fff" stroke-width="1.8" stroke-linecap="round" />
+                  <line x1="44" y1="44" x2="52" y2="44" stroke="#fff" stroke-width="1.8" stroke-linecap="round" />
+                  <line x1="45" y1="41" x2="51" y2="47" stroke="#fff" stroke-width="1.4" stroke-linecap="round"
+                    opacity="0.7" />
+                  <line x1="51" y1="41" x2="45" y2="47" stroke="#fff" stroke-width="1.4" stroke-linecap="round"
+                    opacity="0.7" />
+                  <path d="M62 24 C62 20 59 17 55 17 C51 17 48 20 48 24 C48 29 55 36 55 36 C55 36 62 29 62 24Z"
+                    fill="var(--c-blue)" opacity="0.85" />
+                  <circle cx="55" cy="24" r="3" fill="#fff" />
+                </svg>
+                <div class="hiw-glow"></div>
+              </div>
+            </div>
+            <div class="hiw-card__text">
+              <div class="hiw-num" aria-hidden="true">03</div>
+              <div class="pep-label hiw-step__label">
+                <span class="pep-label__dot"></span>
+                <span>Delivery</span>
+              </div>
+              <h3 class="hiw-step__heading">Receive &amp; Start Your Treatment</h3>
+              <p class="hiw-step__body">Your medication ships cold-chain refrigerated overnight, direct to
+                your door. Everything arrives in one kit — with clear injection instructions and
+                ongoing physician access via your patient portal.</p>
+              <ul class="hiw-step__list">
+                <li>Overnight cold-chain shipping</li>
+                <li>All supplies included in your kit</li>
+                <li>24/7 patient portal access</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /step 3 -->
+
+      </div><!-- /.hiw-steps-row -->
+    </div><!-- /.hiw-steps-wrap -->
+
+  </section>
+  <!-- /#how-it-works -->
+
+
+
+  <!-- ═══════════════════════════════════════════
+           DESIGNED BY LEADING DOCTORS — #doctors 
+      ═══════════════════════════════════════════ -->
+  <section id="doctors" class="peptivo-doctors-section">
+
+    <span class="pep-switch__wm top_50 rotate90" aria-hidden="true">Peptivo</span>
+
+    <div class="container">
+
+      <!-- Section header -->
+      <div class="pds-header">
+        <p class="pds-eyebrow">
+          <span class="pds-eyebrow__dot" aria-hidden="true"></span>
+          Medical Team
+        </p>
+        <h2 class="pds-title">Designed by <em>Leading Doctors</em></h2>
+        <p class="pds-subtitle">
+          Board-certified physicians with decades of metabolic &amp;
+          weight-loss expertise behind every Peptivo plan.
+        </p>
+      </div>
+
+      <!-- ────────────────────────────────────────────────────────
+         ARC STAGE
+         ─────────────────────────────────────────────────────
+         .pds-arc            — relative container that holds both
+                               the SVG arc line and the card track.
+         .pds-arc__ring      — decorative SVG arc (teal stroke).
+         .pds-arc__track     — flex row; each .doctor card is
+                               rotated via --rot CSS variable to
+                               form the arc. JS reads this var
+                               for the entrance tween origin.
+    ──────────────────────────────────────────────────────────── -->
+      <div class="pds-arc" aria-label="Doctor selection">
+
+        <!-- Decorative arc SVG — pure CSS, no JS -->
+        <svg class="pds-arc__ring" viewBox="0 0 1000 520" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+          <path d="M 30 500 Q 500 -80 970 500" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="6 8"
+            opacity="0.25" />
+        </svg>
+
+        <!-- ── Doctor cards — add/remove blocks freely ── -->
+        <div class="pds-arc__track" role="list">
+
+          <!--
+          POSITIONING NOTE
+          Each .doctor gets a --rot custom property (set in CSS)
+          which controls its arc rotation angle.
+          The JS entrance animation uses these same angles.
+          Cards are numbered 1–5 outward from center.
+        -->
+
+          <!-- Card 1 — far left -->
+          <div class="doctor pds-card" role="listitem" style="--rot: -28deg; --delay: 0.05s">
+            <img src="images/doctor1.jpg" alt="Dr. Sophia Taylor">
+            <h4 class="doctor-name">Dr. Sophia Taylor</h4>
+            <p class="doctor-degree">Lead Metabolic Physician</p>
+            <p class="doctor-feedback">Harvard Medical School–trained and board-certified in metabolic medicine. With
+              over
+              2,400 patients treated, Dr. Taylor leads all clinical protocols at Peptivo — ensuring every GLP-1
+              prescription is personalised, rigorously monitored, and built around each patient's unique biology.</p>
+          </div>
+
+          <!-- Card 2 — mid left -->
+          <div class="doctor pds-card" role="listitem" style="--rot: -18deg; --delay: 0.12s">
+            <img src="images/doctor2.jpg" alt="Dr. James Anderson">
+            <h4 class="doctor-name">Dr. James Anderson</h4>
+            <p class="doctor-degree">Senior Endocrinologist</p>
+            <p class="doctor-feedback">Johns Hopkins–trained endocrinologist with 19 years in metabolic disease. Dr.
+              Anderson oversees all hormone and insulin protocols at Peptivo, ensuring each patient's biochemistry is
+              optimised for sustainable, long-term fat loss.</p>
+          </div>
+
+          <!-- Card 3 — center / apex -->
+          <div class="doctor pds-card pds-card--center" role="listitem" style="--rot: 0deg; --delay: 0.0s">
+            <img src="images/doctor3.jpg" alt="Dr. Michael Carter">
+            <h4 class="doctor-name">Dr. Michael Carter</h4>
+            <p class="doctor-degree">Internal Medicine Specialist</p>
+            <p class="doctor-feedback">Stanford Medicine graduate and internal medicine specialist with 11 years of
+              clinical practice. Dr. Carter brings a whole-body lens to weight management — integrating cardiovascular,
+              metabolic, and lifestyle factors into every Peptivo protocol.</p>
+          </div>
+
+          <!-- Card 4 — mid right -->
+          <div class="doctor pds-card" role="listitem" style="--rot: 18deg; --delay: 0.12s">
+            <img src="images/doctor4.jpg" alt="Dr. Emily Brown">
+            <h4 class="doctor-name">Dr. Emily Brown</h4>
+            <p class="doctor-degree">Bariatric Care Director</p>
+            <p class="doctor-feedback">Yale-trained bariatric specialist and director of patient outcomes at Peptivo.
+              Dr.
+              Brown has guided nearly 3,000 patients through medically supervised weight loss, combining GLP-1 therapy
+              with personalised behavioural support for lasting results.</p>
+          </div>
+
+          <!-- Card 5 — far right -->
+          <div class="doctor pds-card" role="listitem" style="--rot: 28deg; --delay: 0.05s">
+            <img src="images/doctor5.jpg" alt="Dr. Lisa Chen">
+            <h4 class="doctor-name">Dr. Lisa Chen</h4>
+            <p class="doctor-degree">Nutritional Medicine Physician</p>
+            <p class="doctor-feedback">Board-certified in nutritional medicine with a focus on gut-metabolic health. Dr.
+              Chen designs the dietary frameworks that complement every GLP-1 protocol at Peptivo — turning medication
+              into a launchpad for lifelong metabolic health.</p>
+          </div>
+
+        </div><!-- /.pds-arc__track -->
+
+      </div><!-- /.pds-arc -->
+
+      <!-- ── Center stage — populated by JS on card click ── -->
+      <div class="pds-stage" id="pdsStage" aria-live="polite" aria-atomic="true">
+
+        <div class="pds-stage__inner">
+
+          <img class="pds-stage__img" src="" alt="" aria-hidden="true">
+
+          <div class="pds-stage__body">
+
+            <p class="pds-eyebrow pds-stage__degree">
+              <span class="pds-eyebrow__dot" aria-hidden="true"></span>
+              <span class="pds-stage__degree-text"></span>
+            </p>
+
+            <h3 class="pds-stage__name"></h3>
+
+            <p class="pds-stage__feedback"></p>
+
+            <ul class="pds-stage__badges" aria-label="Credentials"></ul>
+
+          </div><!-- /.pds-stage__body -->
+
+        </div><!-- /.pds-stage__inner -->
+
+      </div><!-- /.pds-stage -->
+
+      <p class="pds-footnote">
+        All physicians are board-certified and licensed in the United States.
+      </p>
+
+    </div>
+    <!-- /.container -->
+  </section>
+  <!-- /#doctors -->
+
+
+  <!-- ========================================================
+         ONLINE CARE  --  loading-reveal animated section
+         Placement: after #doctors, before scripts.
+         JS: initCare() in main.js (ScrollTrigger, top 80%).
+    ======================================================== -->
+  <section class="pep-care" id="online-care" aria-label="Online Care">
+
+    <span class="pep-switch__wm bottom_20 left_10" aria-hidden="true">Peptivo</span>
+
+    <div class="container-xl">
+
+      <div class="pep-care__header">
+        <div class="pep-label reveal-up">
+          <span class="pep-label__dot"></span>
+          <span>100% Online</span>
+        </div>
+        <h2 class="section-title reveal-up" style="--rd:80ms">
+          Complete Care,<br><em>From Anywhere</em>
+        </h2>
+        <p class="section-sub reveal-up" style="--rd:160ms">
+          No waiting rooms. No referrals. No insurance needed.
+          A licensed physician manages your entire treatment&#8202;&mdash;
+          consultation, prescription, delivery and ongoing follow-up&#8202;&mdash;
+          entirely online.
+        </p>
+      </div>
+
+      <div class="pep-care__grid" id="careGrid">
+
+        <!-- Step 1 — ODD: icon left, slides in from left -->
+        <div class="care-item">
+          <div class="care-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1.2" />
+              <rect x="13" y="11" width="18" height="23" rx="3.5" fill="none" stroke="var(--c-blue)"
+                stroke-width="1.8" />
+              <line x1="17" y1="19" x2="27" y2="19" stroke="var(--c-blue-200)" stroke-width="1.6"
+                stroke-linecap="round" />
+              <line x1="17" y1="23" x2="27" y2="23" stroke="var(--c-blue-200)" stroke-width="1.6"
+                stroke-linecap="round" />
+              <line x1="17" y1="27" x2="23" y2="27" stroke="var(--c-blue-200)" stroke-width="1.6"
+                stroke-linecap="round" />
+              <circle cx="31" cy="32" r="6" fill="var(--c-blue)" stroke="#fff" stroke-width="1.5" />
+              <path d="M28 32l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" fill="none" />
+            </svg>
+          </div>
+          <div class="care-text-wrap">
+            <div class="care-label">Step 01 &mdash; Intake</div>
+            <h3 class="care-title">5-Minute Online Consultation</h3>
+            <p class="care-body">Answer a short health questionnaire. A board-certified physician reviews your history
+              the
+              same day &mdash; no appointment, no waiting room, no referral needed.</p>
+
+          </div>
+        </div>
+
+        <!-- Step 2 — EVEN: icon right, slides in from right -->
+        <div class="care-item care-item--even">
+          <div class="care-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1.2" />
+              <rect x="14" y="12" width="16" height="21" rx="3" fill="none" stroke="var(--c-blue)" stroke-width="1.8" />
+              <rect x="14" y="12" width="16" height="8" rx="3" fill="var(--c-blue)" opacity="0.18" />
+              <text x="22" y="22" text-anchor="middle" font-size="7.5" font-weight="800" fill="var(--c-blue)"
+                font-family="Montserrat,system-ui,sans-serif">Rx</text>
+              <path d="M27 30c0-3.5 5.5-3.5 5.5 0s-2.75 5-2.75 5S27 33.5 27 30z" fill="var(--c-blue)" opacity="0.65" />
+            </svg>
+          </div>
+          <div class="care-text-wrap">
+            <div class="care-label">Step 02 &mdash; Prescription</div>
+            <h3 class="care-title">Same-Day GLP-1 Prescription</h3>
+            <p class="care-body">Once approved, your physician issues a personalised semaglutide prescription &mdash;
+              compounded, sterile, physician-titrated, and adjusted as your body responds over time.</p>
+
+          </div>
+        </div>
+
+        <!-- Step 3 — ODD: icon left, slides in from left -->
+        <div class="care-item">
+          <div class="care-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1.2" />
+              <rect x="9" y="21" width="26" height="13" rx="3" fill="none" stroke="var(--c-blue)" stroke-width="1.8" />
+              <path d="M15 21v-4a7 7 0 0114 0v4" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="22" y1="26" x2="22" y2="29" stroke="var(--c-blue)" stroke-width="2.2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="care-text-wrap">
+            <div class="care-label">Step 03 &mdash; Delivery</div>
+            <h3 class="care-title">Overnight Cold-Chain Delivery</h3>
+            <p class="care-body">Your medication ships refrigerated overnight, direct to your door. All supplies
+              included.
+              Potency guaranteed from our compounding lab to your home.</p>
+
+          </div>
+        </div>
+
+        <!-- Step 4 — EVEN: icon right, slides in from right -->
+        <div class="care-item care-item--even">
+          <div class="care-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1.2" />
+              <circle cx="22" cy="18" r="5.5" fill="none" stroke="var(--c-blue)" stroke-width="1.8" />
+              <path d="M11 35c0-6 5-9.5 11-9.5s11 3.5 11 9.5" stroke="var(--c-blue)" stroke-width="1.8"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="care-text-wrap">
+            <div class="care-label">Step 04 &mdash; Ongoing Care</div>
+            <h3 class="care-title">Continuous Physician Follow-Up</h3>
+            <p class="care-body">Your doctor monitors your progress and adjusts your dose via a secure patient portal.
+              24/7 access. Real clinical support &mdash; not a chatbot &mdash; for the full duration of your treatment.
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /#careGrid -->
+
+    </div>
+
+  </section>
+  <!-- /#online-care -->
+
+
+  <!-- ============================================================
+         BEFORE / AFTER RESULTS  —  stacking card auto-carousel
+         Placement: after #online-care, before the script tags.
+         JS: initBeforeAfterStack() in main.js
+      ============================================================ -->
+  <section class="pep-ba-stack" id="ba-stack" aria-label="Before and After Results">
+
+    <span class="pep-switch__wm top_30" aria-hidden="true">Peptivo</span>
+
+    <div class="container-xl">
+
+      <!-- Section header -->
+      <div class="section-header reveal-up">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>Real Patient Results</span>
+        </div>
+        <h2 class="section-title">
+          Life-Changing <em>Transformations</em>
+        </h2>
+        <p class="section-sub">
+          Every card is a real Peptivo patient — medically supervised,
+          clinically proven, and lasting.
+        </p>
+      </div>
+
+      <!-- Two-column flex row -->
+      <div class="bas-layout">
+
+        <!-- LEFT col — copy / stats -->
+        <div class="bas-copy">
+          <ul class="bas-stats" aria-label="Result statistics">
+            <li class="bas-stat">
+              <strong class="bas-stat__val">−42 <span>lbs</span></strong>
+              <span class="bas-stat__label">Average loss<br>in 4 months</span>
+            </li>
+            <li class="bas-stat__div" aria-hidden="true"></li>
+            <li class="bas-stat">
+              <strong class="bas-stat__val">87 <span>%</span></strong>
+              <span class="bas-stat__label">Patients kept<br>weight off</span>
+            </li>
+            <li class="bas-stat__div" aria-hidden="true"></li>
+            <li class="bas-stat">
+              <strong class="bas-stat__val">6 <span>+</span></strong>
+              <span class="bas-stat__label">Verified real<br>patient stories</span>
+            </li>
+          </ul>
+
+          <p class="bas-body">
+            Our GLP-1 program combines compounded semaglutide with
+            ongoing physician oversight — so every result you see here
+            was achieved safely, and sustainably.
+          </p>
+
+          <a href="#" class="pep-btn pep-btn--primary js-magnetic">
+            See If You Qualify
+          </a>
+
+          <!-- Pagination dots -->
+          <div class="bas-dots" id="basDotsWrap" role="tablist" aria-label="Result cards">
+            <!-- <button class="bas-dot bas-dot--active" data-idx="0" role="tab" aria-label="Card 1"
+              aria-selected="true"></button>
+            <button class="bas-dot" data-idx="1" role="tab" aria-label="Card 2" aria-selected="false"></button>
+            <button class="bas-dot" data-idx="2" role="tab" aria-label="Card 3" aria-selected="false"></button>
+            <button class="bas-dot" data-idx="3" role="tab" aria-label="Card 4" aria-selected="false"></button> -->
+          </div>
+        </div>
+
+        <!-- RIGHT col — stacking cards -->
+        <div class="bas-stage" id="basStage" aria-live="polite">
+
+          <!-- Card 1 -->
+          <div class="bas-card" data-card="0">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-1.webp" alt="Patient 1 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-1.webp" alt="Patient 1 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">Brendon M.</span>
+                <span class="bas-card__dur">4 months</span>
+              </div>
+              <strong class="bas-card__result">−42 lbs</strong>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bas-card" data-card="1">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-2.webp" alt="Patient 2 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-2.webp" alt="Patient 2 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">James R.</span>
+                <span class="bas-card__dur">6 months</span>
+              </div>
+              <strong class="bas-card__result">−58 lbs</strong>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bas-card" data-card="2">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-3.webp" alt="Patient 3 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-3.webp" alt="Patient 3 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">Tom S.</span>
+                <span class="bas-card__dur">5 months</span>
+              </div>
+              <strong class="bas-card__result">−37 lbs</strong>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bas-card" data-card="3">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-4.webp" alt="Patient 4 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-4.webp" alt="Patient 4 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">David K.</span>
+                <span class="bas-card__dur">8 months</span>
+              </div>
+              <strong class="bas-card__result">−71 lbs</strong>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <!-- <div class="bas-card" data-card="4">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-5.webp" alt="Patient 5 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-5.webp" alt="Patient 5 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">Mike G.</span>
+                <span class="bas-card__dur">3 months</span>
+              </div>
+              <strong class="bas-card__result">−28 lbs</strong>
+            </div>
+          </div> -->
+
+          <!-- Card 6 -->
+          <!-- <div class="bas-card" data-card="5">
+            <div class="bas-card__split">
+              <div class="bas-card__half bas-card__half--before">
+                <img src="images/before-6.webp" alt="Patient 6 before" draggable="false" />
+                <span class="bas-card__tag">Before</span>
+              </div>
+              <div class="bas-card__half bas-card__half--after">
+                <img src="images/after-6.webp" alt="Patient 6 after" draggable="false" />
+                <span class="bas-card__tag bas-card__tag--after">After</span>
+              </div>
+            </div>
+            <div class="bas-card__info">
+              <div class="bas-card__meta">
+                <span class="bas-card__name">Tom W.</span>
+                <span class="bas-card__dur">7 months</span>
+              </div>
+              <strong class="bas-card__result">−64 lbs</strong>
+            </div>
+          </div> -->
+
+        </div><!-- /.bas-stage -->
+
+      </div><!-- /.bas-layout -->
+
+    </div><!-- /.container-xl -->
+  </section>
+  <!-- /#ba-stack -->
+
+
+
+  <!-- ══════════════════════════════════════════════════════════
+         BENEFITS  —  .pep-bnf  /  .bnf-*
+         Placement: after <!-- /#ba-stack -->
+
+  <section class="pep-bnf" id="benefits" aria-label="Peptivo Benefits">
+    <div class="container-xl">
+
+      <!-- Section header ─────────────────────────────────── -->
+      <div class="section-header pep-bnf__header">
+        <div class="pep-label reveal-up">
+          <span class="pep-label__dot"></span>
+          <span>Why It Works</span>
+        </div>
+        <h2 class="section-title reveal-up" style="--rd:80ms">
+          Six Ways Peptivo <em>Changes Everything</em>
+        </h2>
+        <p class="section-sub reveal-up" style="--rd:160ms">
+          GLP-1 therapy paired with physician oversight doesn't just help you
+          lose weight — it rebuilds your relationship with your body.
+        </p>
+      </div>
+
+      <!-- 3-column grid ──────────────────────────────────── -->
+      <!--
+          Mobile order:
+            col-lg-4 left  → order-lg-1  order-2   (below bottle on mobile)
+            col-lg-4 centre → order-lg-2  order-1   (top on mobile)
+            col-lg-4 right → order-lg-3  order-3   (below left on mobile)
+        -->
+      <div class="row align-items-center g-5 bnf-grid">
+
+        <!-- LEFT COLUMN — 3 benefits, entrance from left ── -->
+        <div class="col-lg-4 col-12 order-lg-1 order-2" id="bnfLeft">
+          <div class="bnf-col">
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Fork: appetite control -->
+                  <path d="M17 12v7c0 2.2 1.8 3.8 4 3.8" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" />
+                  <path d="M21 23v9" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M25 12v4a2 2 0 0 0 2 2v-6" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M27 18v14" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Appetite Control</h3>
+                <p class="bnf-item__body">GLP-1 receptor agonists work directly on the brain's hunger
+                  centres, reducing cravings and helping you feel full longer —
+                  without willpower battles.</p>
+              </div>
+            </div>
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Heartbeat: metabolic health -->
+                  <path d="M10 26h5l3-8 4 12 3-8 3 4h6" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Metabolic Health</h3>
+                <p class="bnf-item__body">Semaglutide improves insulin sensitivity and blood sugar
+                  regulation — addressing the metabolic root causes of weight
+                  gain, not just the symptoms.</p>
+              </div>
+            </div>
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Downward trend: fat loss -->
+                  <polyline points="11,32 19,24 25,28 34,16" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <polyline points="28,16 34,16 34,22" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Sustainable Fat Loss</h3>
+                <p class="bnf-item__body">Unlike crash diets, GLP-1 therapy promotes steady, clinically
+                  measured fat loss — preserving lean muscle while targeting
+                  stored fat for lasting results.</p>
+              </div>
+            </div>
+
+          </div><!-- /.bnf-col -->
+        </div><!-- /#bnfLeft -->
+
+        <!-- CENTRE COLUMN — bottle image, entrance from top ── -->
+        <div class="col-lg-4 col-12 order-lg-2 order-1" id="bnfCenter">
+          <div class="bnf-bottle">
+            <!-- ── Atom orbital animation — decorative, aria-hidden ──────
+                             Sits BEHIND the bottle (z-index 0) and the existing rings.
+                             GSAP (initBnfAtom) animates orbital rotations + electrons.
+            ──────────────────────────────────────────────────────────── -->
+            <svg class="bnf-atom" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+              focusable="false">
+
+              <!-- Nucleus glow rings — two concentric, faint -->
+              <circle class="bnf-atom__nucleus-ring" cx="200" cy="200" r="28" />
+              <circle class="bnf-atom__nucleus-ring bnf-atom__nucleus-ring--inner" cx="200" cy="200" r="17" />
+
+              <!-- Orbit 1 — horizontal (0deg tilt) -->
+              <g class="bnf-atom__orbit-group" data-orbit="0">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                <circle class="bnf-atom__electron" id="bnfElec0" cx="365" cy="200" r="5.5" />
+              </g>
+
+              <!-- Orbit 2 — 60deg tilt -->
+              <g class="bnf-atom__orbit-group" data-orbit="1" transform="rotate(60 200 200)">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                <circle class="bnf-atom__electron" id="bnfElec1" cx="365" cy="200" r="5.5" />
+              </g>
+
+              <!-- Orbit 3 — 120deg tilt -->
+              <g class="bnf-atom__orbit-group" data-orbit="2" transform="rotate(120 200 200)">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                <circle class="bnf-atom__electron" id="bnfElec2" cx="365" cy="200" r="5.5" />
+              </g>
+
+              <!-- Tiny floating micro-particles — scientific atmosphere -->
+              <circle class="bnf-atom__particle" cx="302" cy="110" r="2.5" />
+              <circle class="bnf-atom__particle" cx="274" cy="292" r="2" />
+              <circle class="bnf-atom__particle" cx="102" cy="319" r="3" />
+              <circle class="bnf-atom__particle" cx="97" cy="171" r="2" />
+              <circle class="bnf-atom__particle" cx="144" cy="114" r="2.5" />
+              <circle class="bnf-atom__particle" cx="245" cy="67" r="2" />
+
+            </svg>
+
+            <div class="bnf-bottle__ring bnf-bottle__ring--1" aria-hidden="true"></div>
+            <div class="bnf-bottle__ring bnf-bottle__ring--2" aria-hidden="true"></div>
+            <img src="images/hero_product_1.png" alt="Peptivo GLP-1 compounded semaglutide vial" class="bnf-bottle__img"
+              draggable="false" />
+            <img src="images/hero_product_2.png" alt="Peptivo GLP-1 compounded semaglutide vial" class="bnf-bottle__img"
+              draggable="false" />
+          </div>
+        </div><!-- /#bnfCenter -->
+
+        <!-- RIGHT COLUMN — 3 benefits, entrance from right ── -->
+        <div class="col-lg-4 col-12 order-lg-3 order-3" id="bnfRight">
+          <div class="bnf-col">
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Stethoscope: physician supervision -->
+                  <path d="M15 15c0 4 3.4 7.2 7.2 7.2" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" />
+                  <path d="M15 15v-2a2 2 0 1 1 4 0v6" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" />
+                  <path d="M22.2 22.2c0 4 3.4 7.2 7.2 7.2" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" />
+                  <circle cx="30.5" cy="30.5" r="2.2" fill="none" stroke="var(--c-blue)" stroke-width="1.5" />
+                  <circle cx="30.5" cy="30.5" r="0.9" fill="var(--c-blue)" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Physician Supervision</h3>
+                <p class="bnf-item__body">Every Peptivo protocol is prescribed and monitored by a
+                  board-certified physician — ensuring your dosage, safety,
+                  and progress are always clinically managed.</p>
+              </div>
+            </div>
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Lightning bolt: energy -->
+                  <path d="M25 11l-8 13h8l-3 9 9-14h-8l2-8z" stroke="var(--c-blue)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Improved Energy</h3>
+                <p class="bnf-item__body">As your body composition improves and blood sugar stabilises,
+                  most patients report significantly higher daily energy levels
+                  — often within the first four weeks.</p>
+              </div>
+            </div>
+
+            <div class="bnf-item">
+              <div class="bnf-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <circle cx="22" cy="22" r="20" fill="var(--c-blue-50)" stroke="var(--c-blue-200)"
+                    stroke-width="1.2" />
+                  <!-- Shield + checkmark: long-term maintenance -->
+                  <path d="M22 11l8 3.6v6.4c0 4.6-3.6 8.4-8 10-4.4-1.6-8-5.4-8-10v-6.4l8-3.6z" stroke="var(--c-blue)"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                  <path d="M18 22l3 3 5-5.5" stroke="var(--c-blue)" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="bnf-item__text">
+                <h3 class="bnf-item__title">Long-Term Maintenance</h3>
+                <p class="bnf-item__body">Peptivo's physician-titrated protocol is designed for the long
+                  run — gradual dose adjustment, ongoing check-ins, and a plan
+                  that evolves as your body does.</p>
+              </div>
+            </div>
+
+          </div><!-- /.bnf-col -->
+        </div><!-- /#bnfRight -->
+
+      </div><!-- /.bnf-grid -->
+    </div><!-- /.container-xl -->
+  </section>
+  <!-- /#benefits -->
+
+  <!-- ============================================================
+           SWITCH TO PEPTIVO  —  .pep-switch
+           Dark hero section: 3-block layout (product | person | product)
+           with floating benefit badges. Blends into background at bottom.
+           JS: initSwitch() in main.js
+        ============================================================ -->
+  <section class="pep-switch" id="switch" aria-label="Switch to Peptivo">
+
+    <!-- Watermark letters — purely decorative -->
+    <span class="pep-switch__wm" aria-hidden="true">Peptivo</span>
+
+    <div class="container-xl pep-switch__inner">
+
+      <!-- Header ──────────────────────────────────────────────── -->
+      <div class="pep-switch__header reveal-up">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>The Better Choice</span>
+        </div>
+        <h2 class="pep-switch__title">
+          Switch to <em>Peptivo</em>.<br>Feel the Difference.
+        </h2>
+        <p class="pep-switch__sub">
+          Physician-prescribed GLP-1 therapy. Compounded, personalised,
+          and delivered to your door — no waiting rooms, no referrals.
+        </p>
+      </div>
+
+      <!-- 3-block row ─────────────────────────────────────────── -->
+      <div class="row g-4 align-items-end pep-switch__row">
+
+        <!-- LEFT — Product bottle 1, slides from top ──────────── -->
+        <div class="col-lg-4 col-6 order-lg-1 order-1" id="swLeft">
+          <div class="swb-card swb-card--product">
+
+            <!-- Floating benefit badge (top-left) -->
+            <div class="swb-badge swb-badge--tl" id="swBadge1">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="8" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1" />
+                <path d="M6 9l2 2 4-4" stroke="var(--c-blue)" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              <span>Physician-<br>Prescribed</span>
+            </div>
+
+            <!-- Floating benefit badge (bottom-right) -->
+            <div class="swb-badge swb-badge--br" id="swBadge2">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="8" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1" />
+                <path d="M9 5v4l2.5 2.5" stroke="var(--c-blue)" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <span>Same-Day<br>Script</span>
+            </div>
+
+            <div class="swb-card__body">
+              <svg class="bnf-atom" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                focusable="false">
+
+                <!-- Nucleus glow rings — two concentric, faint -->
+                <circle class="bnf-atom__nucleus-ring" cx="200" cy="200" r="28" />
+                <circle class="bnf-atom__nucleus-ring bnf-atom__nucleus-ring--inner" cx="200" cy="200" r="17" />
+
+                <!-- Orbit 1 — horizontal (0deg tilt) -->
+                <g class="bnf-atom__orbit-group" data-orbit="0">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec0" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Orbit 2 — 60deg tilt -->
+                <g class="bnf-atom__orbit-group" data-orbit="1" transform="rotate(60 200 200)">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec1" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Orbit 3 — 120deg tilt -->
+                <g class="bnf-atom__orbit-group" data-orbit="2" transform="rotate(120 200 200)">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec2" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Tiny floating micro-particles — scientific atmosphere -->
+                <circle class="bnf-atom__particle" cx="302" cy="110" r="2.5" />
+                <circle class="bnf-atom__particle" cx="274" cy="292" r="2" />
+                <circle class="bnf-atom__particle" cx="102" cy="319" r="3" />
+                <circle class="bnf-atom__particle" cx="97" cy="171" r="2" />
+                <circle class="bnf-atom__particle" cx="144" cy="114" r="2.5" />
+                <circle class="bnf-atom__particle" cx="245" cy="67" r="2" />
+
+              </svg>
+              <img src="images/hero_product_1.png" alt="Peptivo GLP-1 compounded semaglutide vial"
+                class="swb-product-img" id="swProd1" draggable="false" />
+            </div>
+            <div class="swb-card__foot">
+              <span class="swb-card__label">GLP-1 Semaglutide</span>
+              <span class="swb-card__sub">Compounded · Sterile</span>
+            </div>
+          </div>
+        </div><!-- /#swLeft -->
+
+        <!-- CENTRE — Customer / person image, slides from top ─── -->
+        <div class="col-lg-4 col-12 order-lg-2 order-3" id="swCenter">
+          <div class="swb-card swb-card--person">
+            <div class="swb-card__body">
+              <img src="images/switch_peptivo.webp" alt="Peptivo patient — real transformation" class="swb-person-img"
+                id="swPerson" draggable="false" />
+              <div class="swb-person__overlay">
+                <div class="swb-person__stat">
+                  <strong>−42 lbs</strong>
+                  <span>in 16 weeks</span>
+                </div>
+                <div class="swb-person__stat">
+                  <strong>98%</strong>
+                  <span>satisfaction</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /#swCenter -->
+
+        <!-- RIGHT — Product bottle 2, slides from bottom ──────── -->
+        <div class="col-lg-4 col-6 order-lg-3 order-2" id="swRight">
+          <div class="swb-card swb-card--product">
+
+            <!-- Floating benefit badge (top-right) -->
+            <div class="swb-badge swb-badge--tr" id="swBadge3">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="8" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1" />
+                <path d="M5 10c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="var(--c-blue)" stroke-width="1.5"
+                  stroke-linecap="round" />
+                <path d="M9 10v3" stroke="var(--c-blue)" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <span>Cold-Chain<br>Delivery</span>
+            </div>
+
+            <!-- Floating benefit badge (bottom-left) -->
+            <div class="swb-badge swb-badge--bl" id="swBadge4">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="8" fill="var(--c-blue-50)" stroke="var(--c-blue-200)" stroke-width="1" />
+                <path d="M9 5c-2 0-4 1-4 4s2 4 4 4 4-1 4-4" stroke="var(--c-blue)" stroke-width="1.5"
+                  stroke-linecap="round" />
+                <circle cx="9" cy="9" r="1.5" fill="var(--c-blue)" />
+              </svg>
+              <span>Ongoing<br>Follow-Up</span>
+            </div>
+
+            <div class="swb-card__body">
+
+              <svg class="bnf-atom" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                focusable="false">
+
+                <!-- Nucleus glow rings — two concentric, faint -->
+                <circle class="bnf-atom__nucleus-ring" cx="200" cy="200" r="28" />
+                <circle class="bnf-atom__nucleus-ring bnf-atom__nucleus-ring--inner" cx="200" cy="200" r="17" />
+
+                <!-- Orbit 1 — horizontal (0deg tilt) -->
+                <g class="bnf-atom__orbit-group" data-orbit="0">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec0" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Orbit 2 — 60deg tilt -->
+                <g class="bnf-atom__orbit-group" data-orbit="1" transform="rotate(60 200 200)">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec1" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Orbit 3 — 120deg tilt -->
+                <g class="bnf-atom__orbit-group" data-orbit="2" transform="rotate(120 200 200)">
+                  <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52" />
+                  <circle class="bnf-atom__electron" id="bnfElec2" cx="365" cy="200" r="5.5" />
+                </g>
+
+                <!-- Tiny floating micro-particles — scientific atmosphere -->
+                <circle class="bnf-atom__particle" cx="302" cy="110" r="2.5" />
+                <circle class="bnf-atom__particle" cx="274" cy="292" r="2" />
+                <circle class="bnf-atom__particle" cx="102" cy="319" r="3" />
+                <circle class="bnf-atom__particle" cx="97" cy="171" r="2" />
+                <circle class="bnf-atom__particle" cx="144" cy="114" r="2.5" />
+                <circle class="bnf-atom__particle" cx="245" cy="67" r="2" />
+
+              </svg>
+              <img src="images/hero_product_2.png" alt="Peptivo GLP-1 compounded semaglutide vial"
+                class="swb-product-img" id="swProd2" draggable="false" />
+            </div>
+            <div class="swb-card__foot">
+              <span class="swb-card__label">Support Formula</span>
+              <span class="swb-card__sub">Physician-Titrated</span>
+            </div>
+          </div>
+        </div><!-- /#swRight -->
+
+      </div><!-- /.pep-switch__row -->
+
+    </div><!-- /.container-xl -->
+
+    <!-- Bottom fade — blends section into page background -->
+    <div class="pep-switch__fade" aria-hidden="true"></div>
+
+  </section>
+  <!-- /#switch -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+         FAQ  —  .pep-faq / .faq-*
+         Left: sticky visual panel (product image + stat cards)
+         Right: custom accordion — scrolls through while left pins
+         JS: initFAQ() — GSAP ScrollTrigger sticky-pin + accordion
+    ════════════════════════════════════════════════════════════ -->
+  <section class="pep-faq" id="faq" aria-label="Frequently Asked Questions">
+    <div class="container-xl">
+
+      <!-- Section header ───────────────────────────────────── -->
+      <div class="section-header">
+        <div class="pep-label">
+          <span class="pep-label__dot"></span>
+          <span>Got Questions</span>
+        </div>
+        <h2 class="section-title">Everything You Need to <em>Know</em></h2>
+        <p class="section-sub">
+          Real answers about GLP-1 therapy, how Peptivo works,
+          and what to expect from your first dose onward.
+        </p>
+      </div>
+
+      <!-- Two-column body ──────────────────────────────────── -->
+      <div class="faq-body">
+
+        <!-- LEFT — sticky visual panel ─────────────────────── -->
+        <div class="faq-visual" id="faqVisual" aria-hidden="true">
+          <div class="faq-visual__card">
+
+            <svg class="bnf-atom" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+              focusable="false">
+
+              <!-- Nucleus glow rings — two concentric, faint -->
+              <circle class="bnf-atom__nucleus-ring" cx="200" cy="200" r="28" data-svg-origin="200 200"
+                transform="matrix(1.0514,0,0,1.0514,-10.28,-10.28)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px; opacity: 0.1347;">
+              </circle>
+              <circle class="bnf-atom__nucleus-ring bnf-atom__nucleus-ring--inner" cx="200" cy="200" r="17"></circle>
+
+              <!-- Orbit 1 — horizontal (0deg tilt) -->
+              <g class="bnf-atom__orbit-group" data-orbit="0" data-svg-origin="200 200"
+                transform="matrix(-0.95957,-0.28146,0.28146,-0.95957,335.622,448.206)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52"></ellipse>
+                <circle class="bnf-atom__electron" id="bnfElec0" cx="365.000" cy="199.973" r="5.5"></circle>
+              </g>
+
+              <!-- Orbit 2 — 60deg tilt -->
+              <g class="bnf-atom__orbit-group" data-orbit="1"
+                transform="matrix(0.03101,-0.99952,0.99952,0.03101,-6.106,393.702)"
+                data-svg-origin="200.00000000000003 200"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52"></ellipse>
+                <circle class="bnf-atom__electron" id="bnfElec1" cx="56.777" cy="174.180" r="5.5"></circle>
+              </g>
+
+              <!-- Orbit 3 — 120deg tilt -->
+              <g class="bnf-atom__orbit-group" data-orbit="2"
+                transform="matrix(-0.73315,-0.68006,0.68006,-0.73315,210.618,482.642)" data-svg-origin="200 200"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+                <ellipse class="bnf-atom__ring" cx="200" cy="200" rx="165" ry="52"></ellipse>
+                <circle class="bnf-atom__electron" id="bnfElec2" cx="36.862" cy="192.211" r="5.5"></circle>
+              </g>
+
+              <!-- Tiny floating micro-particles — scientific atmosphere -->
+              <circle class="bnf-atom__particle" cx="302" cy="110" r="2.5" data-svg-origin="299.5 107.5"
+                transform="matrix(1,0,0,1,0,0)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+              </circle>
+              <circle class="bnf-atom__particle" cx="274" cy="292" r="2" data-svg-origin="272 290"
+                transform="matrix(1,0,0,1,0,-5.939)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+              </circle>
+              <circle class="bnf-atom__particle" cx="102" cy="319" r="3" data-svg-origin="99 316"
+                transform="matrix(1,0,0,1,0,1.1694)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+              </circle>
+              <circle class="bnf-atom__particle" cx="97" cy="171" r="2" data-svg-origin="95 169"
+                transform="matrix(1,0,0,1,0,-7.8563)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></circle>
+              <circle class="bnf-atom__particle" cx="144" cy="114" r="2.5" data-svg-origin="141.5 111.5"
+                transform="matrix(1,0,0,1,0,7.0448)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;">
+              </circle>
+              <circle class="bnf-atom__particle" cx="245" cy="67" r="2" data-svg-origin="243 65"
+                transform="matrix(1,0,0,1,0,-4.4073)"
+                style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></circle>
+
+            </svg>
+
+            <!-- Decorative rings -->
+            <div class="faq-visual__ring faq-visual__ring--1"></div>
+            <div class="faq-visual__ring faq-visual__ring--2"></div>
+
+            <!-- Product image -->
+            <img src="images/hero_product_1.png" alt="" class="faq-visual__img" draggable="false" />
+            <img src="images/hero_product_2.png" alt="" class="faq-visual__img" draggable="false" />
+
+            <!-- Floating stat pill — top left -->
+            <div class="faq-stat faq-stat--tl">
+              <span class="faq-stat__num">5 min</span>
+              <span class="faq-stat__lbl">Online visit</span>
+            </div>
+
+            <!-- Floating stat pill — bottom right -->
+            <div class="faq-stat faq-stat--br">
+              <span class="faq-stat__num">98%</span>
+              <span class="faq-stat__lbl">Satisfaction</span>
+            </div>
+
+            <!-- Glow -->
+            <div class="faq-visual__glow"></div>
+          </div>
+        </div><!-- /#faqVisual -->
+
+        <!-- RIGHT — accordion list ──────────────────────────── -->
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item" id="faqItem1">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA1">
+              <span>What is GLP-1 therapy and how does it work?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA1" role="region" hidden>
+              <div class="faq-a__inner">
+                GLP-1 (glucagon-like peptide-1) receptor agonists mimic a natural
+                hormone that regulates appetite and blood sugar. Semaglutide — the
+                active ingredient in Peptivo — binds to receptors in the brain's
+                hunger centres, reducing cravings and slowing gastric emptying so
+                you feel fuller for longer. Combined with physician oversight, it
+                drives sustained, clinically measured fat loss.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" id="faqItem2">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA2">
+              <span>How quickly will I see results?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA2" role="region" hidden>
+              <div class="faq-a__inner">
+                Most patients notice reduced appetite within the first one to two
+                weeks. Measurable weight loss typically begins by week four, with
+                significant results — often 10–15% of body weight — visible within
+                three to six months when combined with physician-guided dose titration
+                and basic lifestyle adjustments.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" id="faqItem3">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA3">
+              <span>Do I need to visit a doctor in person?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA3" role="region" hidden>
+              <div class="faq-a__inner">
+                No. Every step of the Peptivo process is fully online. You complete
+                a five-minute health questionnaire, a board-certified physician
+                reviews your medical history and designs your protocol, then issues
+                your prescription — all without a single waiting room visit. Your
+                medication ships directly to your door.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" id="faqItem4">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA4">
+              <span>Is compounded semaglutide safe?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA4" role="region" hidden>
+              <div class="faq-a__inner">
+                Peptivo's compounded semaglutide is sterile-manufactured in
+                FDA-registered, 503B-compliant pharmacies under strict quality
+                controls. It contains the same active molecule as branded GLP-1
+                medications. Every prescription is reviewed and managed by a
+                licensed physician who monitors your progress and adjusts dosing
+                as needed throughout your treatment.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" id="faqItem5">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA5">
+              <span>What does my subscription include?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA5" role="region" hidden>
+              <div class="faq-a__inner">
+                Your Peptivo plan includes the physician consultation, your
+                personalised GLP-1 prescription, sterile compounded medication
+                delivered cold-chain overnight, all injection supplies, ongoing
+                physician check-ins, and dose adjustments for the life of your
+                plan. There are no hidden fees and you can cancel at any time.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" id="faqItem6">
+            <button class="faq-q" aria-expanded="false" aria-controls="faqA6">
+              <span>How is Peptivo different from Ozempic or Wegovy?</span>
+              <span class="faq-q__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a" id="faqA6" role="region" hidden>
+              <div class="faq-a__inner">
+                Ozempic and Wegovy are brand-name semaglutide products with
+                fixed dosing tiers and limited availability. Peptivo uses
+                compounded semaglutide — clinically equivalent but
+                physician-titrated to your exact body weight and metabolic
+                response. This means your dose evolves as you progress, leading
+                to more consistent results with fewer side effects at lower
+                introductory doses.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /#faqList -->
+
+      </div><!-- /.faq-body -->
+
+    </div><!-- /.container-xl -->
+  </section>
+  <!-- /#faq -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       SITE FOOTER  —  .pep-footer / .ft-*
+       Bootstrap 5 grid. 4-column layout:
+         Col 1 (lg-4) Brand  |  Col 2 (lg-2) Support
+         Col 3 (lg-3) Contact  |  Col 4 (lg-2) Company
+       Dark teal-navy background. No new libraries or animations.
+  ════════════════════════════════════════════════════════════ -->
+  <footer class="pep-footer" aria-label="Site footer">
+
+    <!-- Decorative arc shapes — CSS-only, mirrors reference curves -->
+    <div class="ft-arc ft-arc--1" aria-hidden="true"></div>
+    <div class="ft-arc ft-arc--2" aria-hidden="true"></div>
+
+    <div class="container-xl ft-inner">
+
+      <!-- ── Main 4-column grid ──────────────────────────────── -->
+      <div class="row gy-5 gx-4 ft-grid">
+
+        <!-- Column 1 — Brand ─────────────────────────────────── -->
+        <div class="col-lg-4 col-md-12 col-12">
+          <div class="ft-brand">
+
+            <!-- Logo: reuses existing logo structure, colours overridden via .pep-footer scope -->
+            <a href="#" class="ft-logo" aria-label="Peptivo home">
+              <span class="ft-logo__word">Peptivo</span>
+              <span class="ft-logo__badge">GLP-1</span>
+            </a>
+
+            <p class="ft-desc">
+              Peptivo provides science-backed, doctor-guided weight loss
+              solutions delivered directly to your door with full online support.
+            </p>
+
+            <!-- Social icon row -->
+            <div class="ft-social" role="list">
+
+              <a href="#" class="ft-social__btn" role="listitem" aria-label="Peptivo on Facebook">
+                <!-- Facebook -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+
+              <a href="#" class="ft-social__btn" role="listitem" aria-label="Peptivo on Instagram">
+                <!-- Instagram -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+
+              <a href="#" class="ft-social__btn" role="listitem" aria-label="Peptivo on LinkedIn">
+                <!-- LinkedIn -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+
+              <a href="#" class="ft-social__btn" role="listitem" aria-label="Peptivo on YouTube">
+                <!-- YouTube -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                  <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="rgba(14,47,74,0.9)" />
+                </svg>
+              </a>
+
+            </div><!-- /.ft-social -->
+          </div><!-- /.ft-brand -->
+        </div><!-- /col-1 -->
+
+        <!-- Column 2 — Support ───────────────────────────────── -->
+        <div class="col-lg-2 col-md-4 col-6">
+          <h3 class="ft-col__head">Support</h3>
+          <ul class="ft-col__list" role="list">
+            <li><a href="#" class="ft-col__link">Getting Started</a></li>
+            <li><a href="#" class="ft-col__link">Help Center</a></li>
+            <li><a href="#" class="ft-col__link">Track Order</a></li>
+            <li><a href="#" class="ft-col__link">Report Issue</a></li>
+            <li><a href="#" class="ft-col__link">Live Chat</a></li>
+          </ul>
+        </div><!-- /col-2 -->
+
+        <!-- Column 3 — Contact Us ────────────────────────────── -->
+        <div class="col-lg-3 col-md-4 col-6">
+          <h3 class="ft-col__head">Contact Us</h3>
+          <ul class="ft-col__list ft-contact" role="list">
+
+            <li class="ft-contact__row">
+              <span class="ft-contact__icon" aria-hidden="true">
+                <!-- Phone icon -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </span>
+              <a href="tel:+18001234567" class="ft-col__link">+1 (800) 123-4567</a>
+            </li>
+
+            <li class="ft-contact__row">
+              <span class="ft-contact__icon" aria-hidden="true">
+                <!-- Email icon -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </span>
+              <a href="mailto:support@peptivo.com" class="ft-col__link">support@peptivo.com</a>
+            </li>
+
+            <li class="ft-contact__row">
+              <span class="ft-contact__icon" aria-hidden="true">
+                <!-- Location icon -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </span>
+              <span class="ft-col__link">123 Wellness Ave, New York, NY</span>
+            </li>
+
+          </ul>
+        </div><!-- /col-3 -->
+
+        <!-- Column 4 — Company ───────────────────────────────── -->
+        <div class="col-lg-2 col-md-4 col-6">
+          <h3 class="ft-col__head">Company</h3>
+          <ul class="ft-col__list" role="list">
+            <li><a href="#" class="ft-col__link">About Us</a></li>
+            <li><a href="#" class="ft-col__link">Careers</a></li>
+            <li><a href="#" class="ft-col__link">Medical Team</a></li>
+            <li><a href="#" class="ft-col__link">Privacy Policy</a></li>
+            <li><a href="#" class="ft-col__link">Terms &amp; Conditions</a></li>
+          </ul>
+        </div><!-- /col-4 -->
+
+      </div><!-- /.ft-grid -->
+
+      <!-- ── Bottom: divider + copyright ────────────────────── -->
+      <div class="ft-bottom">
+        <p class="ft-copy">
+          &copy; 2026 <strong>Peptivo</strong>. All Rights Reserved.
+        </p>
+      </div>
+
+    </div><!-- /.ft-inner -->
+  </footer><!-- /.pep-footer -->
+
+
+  <!-- GSAP core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="./js/main.js"></script>
+
+</body>
+
+</html>
